@@ -1,0 +1,16 @@
+﻿@model Application.UseCases.Customers.Commands.CreateCustomer.CreateCustomerCommand
+
+@using (Html.BeginForm("Create", "Customer", FormMethod.Post))
+{
+    <div>
+        @Html.Label("First name")
+        @Html.EditorFor(m => m.FirstName)
+    </div>
+    <div>
+        @Html.Label("Last name")
+        @Html.EditorFor(m => m.LastName)
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\Managers\Commands\" />
+    <Folder Include="UseCases\Managers\Queries\" />
+    <Folder Include="UseCases\Orders\Commands\" />
+    <Folder Include="UseCases\Orders\Queries\" />
+    <Folder Include="UseCases\Products\Commands\" />
+    <Folder Include="UseCases\Products\Queries\" />
+  </ItemGroup>
+
+</Project>

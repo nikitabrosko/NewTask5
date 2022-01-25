@@ -1,0 +1,25 @@
+﻿@model Application.Common.Models.PaginatedList<Application.UseCases.Customers.Queries.GetCustomersWithPagination.CustomerDto>
+
+<h2>Customers:</h2>
+<a asp-action="Create">Create customer</a>
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Full name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Items)
+        {
+            <tr>
+                <td>@customer.Id</td>
+                <td>@customer.FirstName</td>
+                <td>@customer.LastName</td>
+                <td>@customer.FullName</td>
+            </tr>
+        }
+    </tbody>
+</table>
