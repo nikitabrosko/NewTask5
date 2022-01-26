@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Application.UseCases.Customers.Commands.CreateCustomer;
 using Application.UseCases.Customers.Commands.DeleteCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
 using Application.UseCases.Customers.Queries.GetCustomersWithPagination;
-using Domain.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WebUI.Controllers
 {

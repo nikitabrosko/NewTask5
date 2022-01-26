@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Application.UseCases.Managers.Commands.CreateManager;
+using Application.UseCases.Managers.Commands.DeleteManager;
 using Application.UseCases.Managers.Commands.UpdateManager;
 using Application.UseCases.Managers.Queries.GetManagersWithPagination;
 
@@ -43,6 +44,15 @@ namespace WebUI.Controllers
             await Mediator.Send(command);
 
             return RedirectToAction("ManagersPage");
+        }
+
+        [HttpDelete("{id}")]
+        [Route("Delete/{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            await Mediator.Send(new DeleteManagerCommand { Id = id });
+
+            return NoContent();
         }
     }
 }
