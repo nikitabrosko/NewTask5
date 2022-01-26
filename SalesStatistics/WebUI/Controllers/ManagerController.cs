@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Application.UseCases.Managers.Commands.CreateManager;
+using Application.UseCases.Managers.Commands.UpdateManager;
 using Application.UseCases.Managers.Queries.GetManagersWithPagination;
 
 namespace WebUI.Controllers
@@ -23,6 +24,21 @@ namespace WebUI.Controllers
 
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromForm] CreateManagerCommand command)
+        {
+            await Mediator.Send(command);
+
+            return RedirectToAction("ManagersPage");
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult Update([FromRoute] int id)
+        {
+            return View(new UpdateManagerCommand { Id = id });
+        }
+
+        [HttpPost("{command}")]
+        [Route("Update/{command}")]
+        public async Task<IActionResult> Update([FromForm] UpdateManagerCommand command)
         {
             await Mediator.Send(command);
 
