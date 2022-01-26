@@ -26,9 +26,11 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateCustomerCommand command)
+        public async Task<ActionResult<int>> Create([FromForm] CreateCustomerCommand command)
         {
-            return await Mediator.Send(command);
+            await Mediator.Send(command);
+
+            return RedirectToAction("CustomersPage");
         }
     }
 }
