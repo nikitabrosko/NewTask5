@@ -1,0 +1,33 @@
+﻿@model Application.UseCases.Customers.Commands.UpdateCustomer.UpdateCustomerCommand
+
+@using (Html.BeginForm("Update", "Customer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    @Html.ValidationSummary(true, "")
+    @Html.HiddenFor(c => c.Id)
+
+    <div>
+        @Html.LabelFor(c => c.FirstName)
+        <div>
+            @Html.EditorFor(c => c.FirstName)
+            @Html.ValidationMessageFor(c => c.FirstName);
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(c => c.LastName)
+        <div>
+            @Html.EditorFor(c => c.LastName)
+            @Html.ValidationMessageFor(c => c.LastName);
+        </div>
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "CustomersPage")
+</div>
