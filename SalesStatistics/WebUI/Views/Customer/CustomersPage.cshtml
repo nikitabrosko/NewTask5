@@ -1,21 +1,20 @@
-﻿@using Application.UseCases.Customers.Commands.CreateCustomer
-@using Application.UseCases.Customers.Queries.GetCustomersWithPagination
+﻿@using Application.UseCases.Customers.Queries.GetCustomersWithPagination
 @model Application.Common.Models.PaginatedList<Application.UseCases.Customers.Queries.GetCustomersWithPagination.CustomerDto>
 
 <h2>Customers:</h2>
 <a asp-action="Create">Create customer</a>
 <table>
     <thead>
-        <tr>
-            <th>id</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Full name</th>
-        </tr>
+    <tr>
+        <th>id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Full name</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var customer in Model.Items)
-        {
+    @foreach (var customer in Model.Items)
+    {
         <tr>
             <td>@customer.Id</td>
             <td>@customer.FirstName</td>
@@ -24,6 +23,19 @@
             <td>@Html.ActionLink("Edit", "Update", new { customer.Id })</td>
             <td>@Html.ActionLink("Delete", "Delete", new { customer.Id })</td>
         </tr>
-        }
+    }
     </tbody>
 </table>
+
+<div>
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("Previous page", "CustomersPage", "Customer",
+            new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber - 1 })
+    }
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next page", "CustomersPage", "Customer",
+            new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber + 1 })
+    }
+</div>
