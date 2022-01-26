@@ -1,4 +1,6 @@
-﻿@model Application.Common.Models.PaginatedList<Application.UseCases.Customers.Queries.GetCustomersWithPagination.CustomerDto>
+﻿@using Application.UseCases.Customers.Commands.CreateCustomer
+@using Application.UseCases.Customers.Queries.GetCustomersWithPagination
+@model Application.Common.Models.PaginatedList<Application.UseCases.Customers.Queries.GetCustomersWithPagination.CustomerDto>
 
 <h2>Customers:</h2>
 <a asp-action="Create">Create customer</a>
@@ -14,13 +16,14 @@
     <tbody>
         @foreach (var customer in Model.Items)
         {
-            <tr>
-                <td>@customer.Id</td>
-                <td>@customer.FirstName</td>
-                <td>@customer.LastName</td>
-                <td>@customer.FullName</td>
-                <td>@Html.ActionLink("Edit", "Update", customer)</td>
-            </tr>
+        <tr>
+            <td>@customer.Id</td>
+            <td>@customer.FirstName</td>
+            <td>@customer.LastName</td>
+            <td>@customer.FullName</td>
+            <td>@Html.ActionLink("Edit", "Update", new { customer.Id })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { customer.Id })</td>
+        </tr>
         }
     </tbody>
 </table>

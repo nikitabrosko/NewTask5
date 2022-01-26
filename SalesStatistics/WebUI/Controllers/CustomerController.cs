@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Application.UseCases.Customers.Commands.CreateCustomer;
+using Application.UseCases.Customers.Commands.DeleteCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
 using Application.UseCases.Customers.Queries.GetCustomersWithPagination;
 using Domain.Entities;
@@ -35,23 +36,28 @@ namespace WebUI.Controllers
             return RedirectToAction("CustomersPage");
         }
 
-        [HttpGet]
-        public IActionResult Update([FromQuery] CustomerDto customer)
+        [HttpGet("{id:int}")]
+        public IActionResult Update([FromRoute] int id)
         {
-            return View(new UpdateCustomerCommand
-            {
-                Id = customer.Id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName
-            });
+            return View(new UpdateCustomerCommand { Id = id });
         }
 
-        [HttpPost]
+        [HttpPost("{command}")]
+        [Route("Update/{command}")]
         public async Task<IActionResult> Update([FromForm] UpdateCustomerCommand command)
         {
             await Mediator.Send(command);
 
             return RedirectToAction("CustomersPage");
+        }
+
+        [HttpDelete("{id}")]
+        [Route("Delete/{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            await Mediator.Send(new DeleteCustomerCommand {Id = id});
+
+            return NoContent();
         }
     }
 }
