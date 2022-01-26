@@ -19,6 +19,9 @@ namespace Infrastructure.Persistence.Configurations
 
             builder.HasMany(m => m.Orders)
                 .WithOne(o => o.Manager);
+
+            builder.Navigation(c => c.Orders)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 }

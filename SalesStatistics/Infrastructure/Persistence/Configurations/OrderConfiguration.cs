@@ -14,8 +14,17 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(o => o.Sum)
-                .HasPrecision(2, 2)
+                .HasPrecision(18, 2)
                 .IsRequired();
+
+            builder.HasOne(o => o.Customer)
+                .WithMany(c => c.Orders);
+            
+            builder.HasOne(o => o.Manager)
+                .WithMany(m => m.Orders);
+
+            builder.HasOne(o => o.Product)
+                .WithMany(p => p.Orders);
         }
     }
 }

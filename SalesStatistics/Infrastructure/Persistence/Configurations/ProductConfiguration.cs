@@ -18,11 +18,14 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(p => p.Price)
-                .HasPrecision(2, 2)
+                .HasPrecision(18, 2)
                 .IsRequired();
 
             builder.HasMany(p => p.Orders)
                 .WithOne(o => o.Product);
+
+            builder.Navigation(c => c.Orders)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 }
