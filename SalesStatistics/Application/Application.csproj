@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Managers\Commands\DeleteManager\" />
     <Folder Include="UseCases\Orders\Commands\" />
     <Folder Include="UseCases\Orders\Queries\" />
     <Folder Include="UseCases\Products\Commands\" />
