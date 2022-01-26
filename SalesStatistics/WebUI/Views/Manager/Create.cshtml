@@ -1,0 +1,12 @@
+﻿@model Application.UseCases.Managers.Commands.CreateManager.CreateManagerCommand
+
+@using (Html.BeginForm("Create", "Manager", FormMethod.Post))
+{
+    <div>
+        @Html.Label("Last name")
+        @Html.EditorFor(m => m.LastName)
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}

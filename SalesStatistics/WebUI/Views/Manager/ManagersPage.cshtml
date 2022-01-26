@@ -1,0 +1,37 @@
+﻿@using Application.UseCases.Managers.Queries.GetManagersWithPagination
+@model Application.Common.Models.PaginatedList<Application.UseCases.Managers.Queries.GetManagersWithPagination.ManagerDto>
+
+<h2>Managers:</h2>
+@Html.ActionLink("Create manager", "Create", "Manager")
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Last name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var manager in Model.Items)
+        {
+            <tr>
+                <td>@manager.Id</td>
+                <td>@manager.LastName</td>
+                <td>@Html.ActionLink("Edit", "Update", new { manager.Id })</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { manager.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("Previous page", "ManagersPage", "Manager",
+            new GetManagersWithPaginationQuery { PageNumber = Model.PageNumber - 1 })
+    }
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next page", "ManagersPage", "Manager",
+            new GetManagersWithPaginationQuery { PageNumber = Model.PageNumber + 1 })
+    }
+</div>
