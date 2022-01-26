@@ -1,0 +1,25 @@
+﻿@model Application.UseCases.Managers.Commands.UpdateManager.UpdateManagerCommand
+
+@using (Html.BeginForm("Update", "Manager", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    @Html.ValidationSummary(true, "")
+    @Html.HiddenFor(c => c.Id)
+
+    <div>
+        @Html.LabelFor(c => c.LastName)
+        <div>
+            @Html.EditorFor(c => c.LastName)
+            @Html.ValidationMessageFor(c => c.LastName);
+        </div>
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ManagersPage")
+</div>
