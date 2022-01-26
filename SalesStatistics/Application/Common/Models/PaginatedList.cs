@@ -24,7 +24,7 @@ namespace Application.Common.Models
             Items = items;
         }
 
-        public bool GasPreviousPage => PageNumber > 1;
+        public bool HasPreviousPage => PageNumber > 1;
 
         public bool HasNextPage => PageNumber < TotalPages;
 

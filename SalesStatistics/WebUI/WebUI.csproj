@@ -16,9 +16,9 @@
   </ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="VIews\Manager\" />
-	  <Folder Include="VIews\Order\" />
-	  <Folder Include="VIews\Product\" />
+	  <Folder Include="Views\Manager\" />
+	  <Folder Include="Views\Order\" />
+	  <Folder Include="Views\Product\" />
 	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 
