@@ -4,6 +4,7 @@ using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
+using System.Linq;
 
 namespace Application.UseCases.Customers.Commands.DeleteCustomer
 {
@@ -24,6 +25,14 @@ namespace Application.UseCases.Customers.Commands.DeleteCustomer
             if (entity is null)
             {
                 throw new NotFoundException(nameof(Customer), request.Id);
+            }
+
+            var ordersCount = _context.Orders
+                .Count(o => o.Customer.Id.Equals(request.Id));
+
+            if (ordersCount > 0)
+            {
+                throw new ForeignKeyDeletionException(nameof(Customer), nameof(Order));
             }
 
             _context.Customers.Remove(entity);
