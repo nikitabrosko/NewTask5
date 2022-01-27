@@ -1,0 +1,39 @@
+﻿@using Application.UseCases.Products.Queries.GetProductsWithPagination
+@model Application.Common.Models.PaginatedList<Application.UseCases.Products.Queries.GetProductsWithPagination.ProductDto>
+
+<h2>Products:</h2>
+@Html.ActionLink("Create manager", "Create", "Product")
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var product in Model.Items)
+    {
+        <tr>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+            <td>@product.Price</td>
+            <td>@Html.ActionLink("Edit", "Update", new { product.Id })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { product.Id })</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<div>
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("Previous page", "ProductsPage", "Product",
+            new GetProductsWithPaginationQuery { PageNumber = Model.PageNumber - 1 })
+    }
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next page", "ProductsPage", "Product",
+            new GetProductsWithPaginationQuery { PageNumber = Model.PageNumber + 1 })
+    }
+</div>
