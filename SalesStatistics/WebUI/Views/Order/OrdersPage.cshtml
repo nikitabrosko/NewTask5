@@ -1,0 +1,45 @@
+﻿@using Application.UseCases.Orders.Queries.GetOrdersWithPagination
+@model Application.Common.Models.PaginatedList<Application.UseCases.Orders.Queries.GetOrdersWithPagination.OrderDto>
+
+<h2>Orders:</h2>
+@Html.ActionLink("Create order", "Create", "Order")
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Date</th>
+            <th>Sum</th>
+            <th>Customer</th>
+            <th>Manager</th>
+            <th>Product</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in Model.Items)
+    {
+        <tr>
+            <td>@order.Id</td>
+            <td>@order.Date</td>
+            <td>@order.Sum</td>
+            <td>@order.CustomerFullName</td>
+            <td>@order.ManagerLastName</td>
+            <td>@order.ProductName</td>
+            <td>@Html.ActionLink("Edit", "Update", new { order.Id })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { order.Id })</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<div>
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("Previous page", "OrdersPage", "Order",
+            new GetOrdersWithPaginationQuery { PageNumber = Model.PageNumber - 1 })
+    }
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next page", "OrdersPage", "Order",
+            new GetOrdersWithPaginationQuery { PageNumber = Model.PageNumber + 1 })
+    }
+</div>
