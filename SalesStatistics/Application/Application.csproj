@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="UseCases\Orders\Commands\" />
     <Folder Include="UseCases\Orders\Queries\" />
-    <Folder Include="UseCases\Products\Commands\DeleteProduct\" />
   </ItemGroup>
 
 </Project>
