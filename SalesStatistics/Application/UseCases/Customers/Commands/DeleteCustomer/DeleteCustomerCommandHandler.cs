@@ -4,7 +4,7 @@ using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.UseCases.Customers.Commands.DeleteCustomer
 {
@@ -27,8 +27,9 @@ namespace Application.UseCases.Customers.Commands.DeleteCustomer
                 throw new NotFoundException(nameof(Customer), request.Id);
             }
 
-            var ordersCount = _context.Orders
-                .Count(o => o.Customer.Id.Equals(request.Id));
+            var ordersCount = await _context.Orders
+                .CountAsync(o => o.Customer.Id
+                    .Equals(request.Id), cancellationToken);
 
             if (ordersCount > 0)
             {

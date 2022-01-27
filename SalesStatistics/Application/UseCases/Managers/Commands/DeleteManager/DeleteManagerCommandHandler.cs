@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.UseCases.Managers.Commands.DeleteManager
 {
@@ -27,8 +27,8 @@ namespace Application.UseCases.Managers.Commands.DeleteManager
                 throw new NotFoundException(nameof(Manager), request.Id);
             }
 
-            var ordersCount = _context.Orders
-                .Count(o => o.Manager.Id.Equals(request.Id));
+            var ordersCount = await _context.Orders
+                .CountAsync(o => o.Manager.Id.Equals(request.Id), cancellationToken);
 
             if (ordersCount > 0)
             {
