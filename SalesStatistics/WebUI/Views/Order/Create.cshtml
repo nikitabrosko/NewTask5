@@ -1,0 +1,28 @@
+﻿@model Application.UseCases.Orders.Commands.CreateOrder.CreateOrderCommand
+
+@using (Html.BeginForm("Create", "Order", FormMethod.Post))
+{
+    <div>
+        @Html.Label("Date")
+        @Html.EditorFor(o => o.Date)
+    </div>
+    <div>
+        @Html.Label("Sum")
+        @Html.EditorFor(o => o.Sum)
+    </div>
+    <div>
+        @Html.Label("Customer id")
+        @Html.EditorFor(o => o.CustomerId)
+    </div>
+    <div>
+        @Html.Label("Manager id")
+        @Html.EditorFor(o => o.ManagerId)
+    </div>
+    <div>
+        @Html.Label("Product id")
+        @Html.EditorFor(o => o.ProductId)
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}
