@@ -1,0 +1,32 @@
+﻿@model Application.UseCases.Products.Commands.UpdateProduct.UpdateProductCommand
+
+@using (Html.BeginForm("Update", "Product", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    @Html.ValidationSummary(true, "")
+    @Html.HiddenFor(p => p.Id)
+
+    <div>
+        @Html.LabelFor(p => p.Name)
+        <div>
+            @Html.EditorFor(p => p.Name)
+            @Html.ValidationMessageFor(p => p.Name)
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(p => p.Price)
+        <div>
+            @Html.EditorFor(p => p.Price)
+            @Html.ValidationMessageFor(p => p.Price)
+        </div>
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ProductsPage")
+</div>
