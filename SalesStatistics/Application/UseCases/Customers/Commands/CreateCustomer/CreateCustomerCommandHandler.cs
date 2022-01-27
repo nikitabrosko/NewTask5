@@ -23,7 +23,7 @@ namespace Application.UseCases.Customers.Commands.CreateCustomer
                 LastName = request.LastName
             };
 
-            _context.Customers.Add(entity);
+            await _context.Customers.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
 

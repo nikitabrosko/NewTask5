@@ -26,9 +26,9 @@ namespace Application.UseCases.Orders.Commands.UpdateOrder
                 throw new NotFoundException(nameof(Order), request.Id);
             }
 
-            var customerEntity = await GetCustomerAsync(entity.Customer, request.CustomerId, cancellationToken);
-            var managerEntity = await GetManagerAsync(entity.Manager, request.ManagerId, cancellationToken);
-            var productEntity = await GetProductAsync(entity.Product, request.ProductId, cancellationToken);
+            var customerEntity = await GetCustomerAsync(request.CustomerId, cancellationToken);
+            var managerEntity = await GetManagerAsync(request.ManagerId, cancellationToken);
+            var productEntity = await GetProductAsync(request.ProductId, cancellationToken);
 
             entity.Date = request.Date;
             entity.Sum = request.Sum;
@@ -43,13 +43,8 @@ namespace Application.UseCases.Orders.Commands.UpdateOrder
             return Unit.Value;
         }
 
-        protected async Task<Customer> GetCustomerAsync(Customer customer, int id, CancellationToken cancellationToken)
+        protected async Task<Customer> GetCustomerAsync(int id, CancellationToken cancellationToken)
         {
-            if (customer.Id.Equals(id))
-            {
-                return customer;
-            }
-
             var customerEntity = await _context.Customers
                 .FindAsync(new object[] {id}, cancellationToken);
 
@@ -61,13 +56,8 @@ namespace Application.UseCases.Orders.Commands.UpdateOrder
             return customerEntity;
         }
 
-        protected async Task<Manager> GetManagerAsync(Manager manager, int id, CancellationToken cancellationToken)
+        protected async Task<Manager> GetManagerAsync(int id, CancellationToken cancellationToken)
         {
-            if (manager.Id.Equals(id))
-            {
-                return manager;
-            }
-
             var managerEntity = await _context.Managers
                 .FindAsync(new object[] {id}, cancellationToken);
 
@@ -79,13 +69,8 @@ namespace Application.UseCases.Orders.Commands.UpdateOrder
             return managerEntity;
         }
 
-        protected async Task<Product> GetProductAsync(Product product, int id, CancellationToken cancellationToken)
+        protected async Task<Product> GetProductAsync(int id, CancellationToken cancellationToken)
         {
-            if (product.Id.Equals(id))
-            {
-                return product;
-            }
-
             var productEntity = await _context.Products
                 .FindAsync(new object[] { id }, cancellationToken);
 

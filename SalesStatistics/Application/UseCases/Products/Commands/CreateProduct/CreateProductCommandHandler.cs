@@ -23,7 +23,7 @@ namespace Application.UseCases.Products.Commands.CreateProduct
                 Price = request.Price
             };
 
-            _context.Products.Add(entity);
+            await _context.Products.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
 

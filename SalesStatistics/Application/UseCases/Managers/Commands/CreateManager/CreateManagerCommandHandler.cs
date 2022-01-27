@@ -22,7 +22,7 @@ namespace Application.UseCases.Managers.Commands.CreateManager
                 LastName = request.LastName
             };
 
-            _context.Managers.Add(entity);
+            await _context.Managers.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
 
