@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Application.UseCases.Products.Commands.CreateProduct;
+using Application.UseCases.Products.Commands.DeleteProduct;
 using Application.UseCases.Products.Commands.UpdateProduct;
 using Application.UseCases.Products.Queries.GetProductsWithPagination;
 
@@ -43,6 +44,15 @@ namespace WebUI.Controllers
             await Mediator.Send(command);
 
             return RedirectToAction("ProductsPage");
+        }
+
+        [HttpDelete("{id}")]
+        [Route("Delete/{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            await Mediator.Send(new DeleteProductCommand { Id = id });
+
+            return NoContent();
         }
     }
 }
