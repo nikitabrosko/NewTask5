@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.Common.Models;
 using Application.UseCases.Orders.Commands.CreateOrder;
+using Application.UseCases.Orders.Commands.DeleteOrder;
 using Application.UseCases.Orders.Commands.UpdateOrder;
 using Application.UseCases.Orders.Queries.GetOrdersWithPagination;
 
@@ -43,6 +44,15 @@ namespace WebUI.Controllers
             await Mediator.Send(command);
 
             return RedirectToAction("OrdersPage");
+        }
+
+        [HttpDelete("{id}")]
+        [Route("Delete/{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            await Mediator.Send(new DeleteOrderCommand { Id = id });
+
+            return NoContent();
         }
     }
 }
