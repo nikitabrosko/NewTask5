@@ -1,5 +1,4 @@
 ﻿using Application.Common.Models;
-using Application.UseCases.Customers.Queries.GetCustomersWithPagination;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
