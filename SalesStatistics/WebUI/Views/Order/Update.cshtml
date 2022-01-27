@@ -1,0 +1,57 @@
+﻿@model Application.UseCases.Orders.Commands.UpdateOrder.UpdateOrderCommand
+
+@using (Html.BeginForm("Update", "Order", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    @Html.ValidationSummary(true, "")
+    @Html.HiddenFor(o => o.Id)
+
+    <div>
+        @Html.LabelFor(o => o.Date)
+        <div>
+            @Html.EditorFor(o => o.Date)
+            @Html.ValidationMessageFor(o => o.Date)
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(o => o.Sum)
+        <div>
+            @Html.EditorFor(o => o.Sum)
+            @Html.ValidationMessageFor(o => o.Sum)
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(o => o.CustomerId)
+        <div>
+            @Html.EditorFor(o => o.CustomerId)
+            @Html.ValidationMessageFor(o => o.CustomerId)
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(o => o.ManagerId)
+        <div>
+            @Html.EditorFor(o => o.ManagerId)
+            @Html.ValidationMessageFor(o => o.ManagerId)
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(o => o.ProductId)
+        <div>
+            @Html.EditorFor(o => o.ProductId)
+            @Html.ValidationMessageFor(o => o.ProductId)
+        </div>
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "OrdersPage")
+</div>
