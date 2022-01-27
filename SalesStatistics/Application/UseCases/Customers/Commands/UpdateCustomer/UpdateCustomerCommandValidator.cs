@@ -8,11 +8,13 @@ namespace Application.UseCases.Customers.Commands.UpdateCustomer
         {
             RuleFor(v => v.FirstName)
                 .MaximumLength(20)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("First name is invalid!");
 
             RuleFor(v => v.LastName)
                 .MaximumLength(30)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("Last name is invalid!");
         }
     }
 }

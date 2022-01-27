@@ -5,13 +5,13 @@
     @Html.AntiForgeryToken();
 
     @Html.ValidationSummary(true, "")
-    @Html.HiddenFor(c => c.Id)
+    @Html.HiddenFor(m => m.Id)
 
     <div>
-        @Html.LabelFor(c => c.LastName)
+        @Html.LabelFor(m => m.LastName)
         <div>
-            @Html.EditorFor(c => c.LastName)
-            @Html.ValidationMessageFor(c => c.LastName);
+            @Html.EditorFor(m => m.LastName)
+            @Html.ValidationMessageFor(m => m.LastName)
         </div>
     </div>
 
