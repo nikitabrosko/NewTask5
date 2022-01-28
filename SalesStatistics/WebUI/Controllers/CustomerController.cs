@@ -5,6 +5,7 @@ using Application.UseCases.Customers.Commands.CreateCustomer;
 using Application.UseCases.Customers.Commands.DeleteCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
 using Application.UseCases.Customers.Queries.GetCustomersWithPagination;
+using Application.UseCases.Customers.Queries.GetFilteringCustomersWithPagination;
 
 namespace WebUI.Controllers
 {
@@ -15,6 +16,18 @@ namespace WebUI.Controllers
             [FromQuery] GetCustomersWithPaginationQuery query)
         {
             return View(await Mediator.Send(query));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringCustomersPage(
+            [FromForm] GetFilteringCustomersWithPaginationQuery query)
+        {
+            if (query.FirstNameFilter is null && query.LastNameFilter is null)
+            {
+                return RedirectToAction("CustomersPage");
+            }
+
+            return View("CustomersPage", await Mediator.Send(query));
         }
 
         [HttpGet]
