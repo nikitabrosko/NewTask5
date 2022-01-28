@@ -4,6 +4,7 @@ using Application.Common.Models;
 using Application.UseCases.Products.Commands.CreateProduct;
 using Application.UseCases.Products.Commands.DeleteProduct;
 using Application.UseCases.Products.Commands.UpdateProduct;
+using Application.UseCases.Products.Queries.GetFilteringProductsWithPagination;
 using Application.UseCases.Products.Queries.GetProductsWithPagination;
 
 namespace WebUI.Controllers
@@ -15,6 +16,18 @@ namespace WebUI.Controllers
             [FromQuery] GetProductsWithPaginationQuery query)
         {
             return View(await Mediator.Send(query));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringProductsPage(
+            [FromForm] GetFilteringProductsWithPaginationQuery query)
+        {
+            if (query.NameFilter is null && query.PriceFilter is null)
+            {
+                return RedirectToAction("ProductsPage");
+            }
+
+            return View("ProductsPage", await Mediator.Send(query));
         }
 
         [HttpGet]
