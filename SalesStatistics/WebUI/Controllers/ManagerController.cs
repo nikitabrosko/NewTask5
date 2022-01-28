@@ -4,6 +4,7 @@ using Application.Common.Models;
 using Application.UseCases.Managers.Commands.CreateManager;
 using Application.UseCases.Managers.Commands.DeleteManager;
 using Application.UseCases.Managers.Commands.UpdateManager;
+using Application.UseCases.Managers.Queries.GetFilteringManagersWithPagination;
 using Application.UseCases.Managers.Queries.GetManagersWithPagination;
 
 namespace WebUI.Controllers
@@ -15,6 +16,18 @@ namespace WebUI.Controllers
             [FromQuery] GetManagersWithPaginationQuery query)
         {
             return View(await Mediator.Send(query));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringManagersPage(
+            [FromForm] GetFilteringManagersWithPaginationQuery query)
+        {
+            if (query.LastNameFilter is null)
+            {
+                return RedirectToAction("ManagersPage");
+            }
+
+            return View("ManagersPage", await Mediator.Send(query));
         }
 
         [HttpGet]
