@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.Products.Queries.GetProductsWithPagination
+﻿namespace Application.Common.Models
 {
     public class ProductDto
     {
