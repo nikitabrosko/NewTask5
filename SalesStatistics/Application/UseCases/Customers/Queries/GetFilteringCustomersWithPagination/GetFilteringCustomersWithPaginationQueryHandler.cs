@@ -21,36 +21,27 @@ namespace Application.UseCases.Customers.Queries.GetFilteringCustomersWithPagina
         {
             IQueryable<Customer> customers = null;
 
-            var filterState = request.FirstNameFilter is null && request.LastNameFilter is null
-                ? FilterState.NoParameters : request.FirstNameFilter is null
+            var filterState = request.FirstNameFilter is null
                     ? FilterState.OnlyLastName : request.LastNameFilter is null
                         ? FilterState.OnlyFirstName : FilterState.BothParameters;
 
-            switch (filterState)
+            customers = filterState switch
             {
-                case FilterState.NoParameters:
-                    customers = _context.Customers;
-                    break;
-                case FilterState.BothParameters:
-                    customers = _context.Customers
-                        .Where(customer => (customer.FirstName.Equals(request.FirstNameFilter)
-                                            || customer.FirstName.StartsWith(request.FirstNameFilter))
-                                           && (customer.LastName.Equals(request.LastNameFilter)
-                                           || customer.LastName.StartsWith(request.LastNameFilter)));
-                    break;
-                case FilterState.OnlyFirstName:
-                    customers = _context.Customers
-                        .Where(customer => customer.FirstName.Equals(request.FirstNameFilter)
-                                           || customer.FirstName.StartsWith(request.FirstNameFilter));
-                    break;
-                case FilterState.OnlyLastName:
-                    customers = _context.Customers
-                        .Where(customer => customer.LastName.Equals(request.LastNameFilter)
-                                           || customer.LastName.StartsWith(request.LastNameFilter));
-                    break;
-            }
+                FilterState.BothParameters => _context.Customers
+                    .Where(customer => (customer.FirstName.Equals(request.FirstNameFilter) ||
+                                        customer.FirstName.StartsWith(request.FirstNameFilter)) &&
+                                       (customer.LastName.Equals(request.LastNameFilter) ||
+                                        customer.LastName.StartsWith(request.LastNameFilter))),
+                FilterState.OnlyFirstName => _context.Customers
+                    .Where(customer => customer.FirstName.Equals(request.FirstNameFilter) ||
+                                       customer.FirstName.StartsWith(request.FirstNameFilter)),
+                FilterState.OnlyLastName => _context.Customers
+                    .Where(customer => customer.LastName.Equals(request.LastNameFilter) ||
+                                       customer.LastName.StartsWith(request.LastNameFilter)),
+                _ => _context.Customers
+            };
 
-            var query = customers?
+            var query = customers
                 .Select(customer => new CustomerDto 
                 {
                     Id = customer.Id,

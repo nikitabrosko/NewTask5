@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
@@ -21,34 +22,23 @@ namespace Application.UseCases.Products.Queries.GetFilteringProductsWithPaginati
         {
             IQueryable<Product> products = null;
 
-            var filterState = request.NameFilter is null && request.PriceFilter is null
-                ? FilterState.NoParameters : request.NameFilter is null
+            var filterState = request.NameFilter is null
                     ? FilterState.OnlyPrice : request.PriceFilter is null
                         ? FilterState.OnlyName : FilterState.BothParameters;
 
-            switch (filterState)
+            products = filterState switch
             {
-                case FilterState.NoParameters:
-                    products = _context.Products;
-                    break;
-                case FilterState.BothParameters:
-                    products = _context.Products
-                        .Where(product => (product.Name.Equals(request.NameFilter) 
-                                           || product.Name.StartsWith(request.NameFilter)) 
-                                          && product.Price.Equals(decimal.Parse(request.PriceFilter)));
-                    break;
-                case FilterState.OnlyName:
-                    products = _context.Products
-                        .Where(product => product.Name.Equals(request.NameFilter) 
-                                          || product.Name.StartsWith(request.NameFilter));
-                    break;
-                case FilterState.OnlyPrice:
-                    products = _context.Products
-                        .Where(product => product.Price.Equals(decimal.Parse(request.PriceFilter)));
-                    break;
-            }
+                FilterState.BothParameters => _context.Products
+                    .Where(product => (product.Name.Equals(request.NameFilter) || product.Name.StartsWith(request.NameFilter)) &&
+                                      product.Price.Equals(decimal.Parse(request.PriceFilter, CultureInfo.InvariantCulture))),
+                FilterState.OnlyName => _context.Products
+                    .Where(product => product.Name.Equals(request.NameFilter) || product.Name.StartsWith(request.NameFilter)),
+                FilterState.OnlyPrice => _context.Products
+                    .Where(product => product.Price.Equals(decimal.Parse(request.PriceFilter, CultureInfo.InvariantCulture))),
+                _ => _context.Products
+            };
 
-            var query = products?
+            var query = products
                 .Select(product => new ProductDto
                 {
                     Id = product.Id,

@@ -4,7 +4,6 @@
     {
         OnlyName,
         OnlyPrice,
-        BothParameters,
-        NoParameters
+        BothParameters
     }
 }

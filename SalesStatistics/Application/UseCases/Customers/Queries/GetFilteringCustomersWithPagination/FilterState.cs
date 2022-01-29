@@ -4,7 +4,6 @@
     {
         OnlyFirstName,
         OnlyLastName,
-        BothParameters,
-        NoParameters
+        BothParameters
     }
 }
