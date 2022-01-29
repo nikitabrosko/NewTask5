@@ -2,16 +2,22 @@
 @using Application.UseCases.Managers.Queries.GetManagersWithPagination
 @model Application.Common.Models.PaginatedList<Application.Common.Models.ManagerDto>
 
-<h2 class="text-center">Managers:</h2>
+<h2 class="text-center">Managers</h2>
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">@Html.ActionLink("Create manager", "Create", "Manager", new { }, new { @class = "btn btn-dark" })</th>
-            @await Html.PartialAsync("Filter", new GetFilteringManagersWithPaginationQuery())
+            <th scope="col">
+                @Html.ActionLink("Create manager", "Create", "Manager",
+                new { }, new { @class = "btn btn-dark" })
+        </th>
+        @await Html.PartialAsync("Filter", new GetFilteringManagersWithPaginationQuery())
+        <th scope="col"></th>
         </tr>
         <tr>
             <th scope="col">id</th>
             <th scope="col">Last name</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +26,8 @@
             <tr>
                 <td>@manager.Id</td>
                 <td>@manager.LastName</td>
-                <td>@Html.ActionLink("Edit", "Update", new { manager.Id })</td>
-                <td>@Html.ActionLink("Delete", "Delete", new { manager.Id })</td>
+                <td>@Html.ActionLink("Edit", "Update", new { manager.Id }, new { @class = "btn btn-dark" })</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { manager.Id }, new { @class = "btn btn-dark" })</td>
             </tr>
         }
     </tbody>

@@ -1,25 +1,26 @@
 ﻿@model Application.UseCases.Managers.Commands.UpdateManager.UpdateManagerCommand
 
-@using (Html.BeginForm("Update", "Manager", FormMethod.Post))
+<h2 class="text-center">Update manager</h2>
+
+@using (Html.BeginForm("Update", "Manager", FormMethod.Post,
+       new { @id = "createCustomerForm", @class = "form-group" }))
 {
     @Html.AntiForgeryToken();
 
-    @Html.ValidationSummary(true, "")
     @Html.HiddenFor(m => m.Id)
 
-    <div>
+    <div class="form-group">
         @Html.LabelFor(m => m.LastName)
-        <div>
-            @Html.EditorFor(m => m.LastName)
-            @Html.ValidationMessageFor(m => m.LastName)
-        </div>
+        @Html.EditorFor(m => m.LastName, new { htmlAttributes = 
+            new { required = "true", minlength = "2", @class = "form-control", placeholder="Last name" } })
     </div>
 
-    <div>
-        <input type="submit" value="Save" />
-    </div>
+    <input type="submit" value="Save" class="btn btn-dark" />
+    @Html.ActionLink("Back to List", "ManagersPage", new { }, new { @class = "btn btn-dark" })
 }
 
-<div>
-    @Html.ActionLink("Back to List", "ManagersPage")
-</div>
+@section Scripts {
+    <script>
+        $("#createCustomerForm").validate();
+    </script>
+}
