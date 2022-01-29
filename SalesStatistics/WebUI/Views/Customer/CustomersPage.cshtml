@@ -6,8 +6,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">@Html.ActionLink("Create customer", "Create", "Customer", new{}, new{ @class = "btn btn-dark" })</th>
+            <th scope="col">@Html.ActionLink("Create customer", "Create", "Customer", 
+                                new{}, new{ @class = "btn btn-dark" })</th>
             @await Html.PartialAsync("Filter", new GetFilteringCustomersWithPaginationQuery())
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         <tr>
             <th scope="col">id</th>
