@@ -4,6 +4,7 @@ using Application.Common.Models;
 using Application.UseCases.Orders.Commands.CreateOrder;
 using Application.UseCases.Orders.Commands.DeleteOrder;
 using Application.UseCases.Orders.Commands.UpdateOrder;
+using Application.UseCases.Orders.Queries.GetFilteringOrdersWithPagination;
 using Application.UseCases.Orders.Queries.GetOrdersWithPagination;
 
 namespace WebUI.Controllers
@@ -15,6 +16,18 @@ namespace WebUI.Controllers
             [FromQuery] GetOrdersWithPaginationQuery query)
         {
             return View(await Mediator.Send(query));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringOrdersPage(
+            [FromForm] GetFilteringOrdersWithPaginationQuery query)
+        {
+            if (query.DateFromFilter is null && query.DateToFilter is null && query.Sum is null)
+            {
+                return RedirectToAction("OrdersPage");
+            }
+
+            return View("OrdersPage", await Mediator.Send(query));
         }
 
         [HttpGet]
