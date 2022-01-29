@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Application.UseCases.Orders.Queries.GetOrdersWithPagination
+namespace Application.Common.Models
 {
     public class OrderDto
     {
