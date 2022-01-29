@@ -1,16 +1,22 @@
 ﻿@using Application.UseCases.Customers.Queries.GetCustomersWithPagination
-@model Application.Common.Models.PaginatedList<Application.UseCases.Customers.Queries.GetCustomersWithPagination.CustomerDto>
+@using Application.UseCases.Customers.Queries.GetFilteringCustomersWithPagination
+@model Application.Common.Models.PaginatedList<Application.Common.Models.CustomerDto>
 
-<h2>Customers:</h2>
-<a asp-action="Create">Create customer</a>
-<table>
+<h2 class="text-center">Customers</h2>
+<table class="table">
     <thead>
-    <tr>
-        <th>id</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Full name</th>
-    </tr>
+        <tr>
+            <th scope="col">@Html.ActionLink("Create customer", "Create", "Customer", new{}, new{ @class = "btn btn-dark" })</th>
+            @await Html.PartialAsync("Filter", new GetFilteringCustomersWithPaginationQuery())
+        </tr>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Full name</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
     </thead>
     <tbody>
     @foreach (var customer in Model.Items)
@@ -20,10 +26,10 @@
             <td>@customer.FirstName</td>
             <td>@customer.LastName</td>
             <td>@customer.FullName</td>
-            <td>@Html.ActionLink("Edit", "Update", new { customer.Id })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { customer.Id })</td>
+            <td>@Html.ActionLink("Edit", "Update", new { customer.Id }, new { @class= "btn btn-dark" })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { customer.Id }, new { @class = "btn btn-dark" })</td>
         </tr>
-    }
+        }
     </tbody>
 </table>
 

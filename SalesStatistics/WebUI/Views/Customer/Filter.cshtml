@@ -1,0 +1,18 @@
+﻿@model Application.UseCases.Customers.Queries.GetFilteringCustomersWithPagination.GetFilteringCustomersWithPaginationQuery
+
+@using (Html.BeginForm("FilteringCustomersPage", "Customer", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0" }))
+{
+    @Html.AntiForgeryToken()
+
+    <th scope="col">
+        @Html.EditorFor(m => m.FirstNameFilter,
+        new { htmlAttributes = new { @class = "form-control mr-sm-2", placeholder = "First name" } })
+    </th>
+    <th scope="col">
+        @Html.EditorFor(m => m.LastNameFilter,
+        new { htmlAttributes = new { @class = "form-control mr-sm-2", placeholder = "Last name" } })
+    </th>
+    <th scope="col"><input type="submit" value="Search" class="btn btn-dark" /></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+}
