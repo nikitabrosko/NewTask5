@@ -1,16 +1,26 @@
 ﻿@model Application.UseCases.Products.Commands.CreateProduct.CreateProductCommand
 
-@using (Html.BeginForm("Create", "Product", FormMethod.Post))
+@{
+    var attributesForName = new { htmlAttributes = new { required = "true", minlength = "2" } };
+    var attributesForPrice = new { htmlAttributes = new { required = "true", type = "number" } };
+}
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { @id = "createProductForm" }))
 {
     <div>
         @Html.Label("Name")
-        @Html.EditorFor(p => p.Name)
+        @Html.EditorFor(p => p.Name, attributesForName)
     </div>
     <div>
         @Html.Label("Price")
-        @Html.EditorFor(p => p.Price)
+        @Html.EditorFor(p => p.Price, attributesForPrice)
     </div>
     <div>
         <input type="submit" value="Save" />
     </div>
+    @section Scripts {
+        <script>
+            $("#createProductForm").validate();
+        </script>
+    }
 }

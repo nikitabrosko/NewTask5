@@ -1,10 +1,12 @@
-﻿@using Application.UseCases.Products.Queries.GetProductsWithPagination
-@model Application.Common.Models.PaginatedList<Application.UseCases.Products.Queries.GetProductsWithPagination.ProductDto>
+﻿@using Application.UseCases.Products.Queries.GetFilteringProductsWithPagination
+@using Application.UseCases.Products.Queries.GetProductsWithPagination
+@model Application.Common.Models.PaginatedList<Application.Common.Models.ProductDto>
 
 <h2>Products:</h2>
 @Html.ActionLink("Create product", "Create", "Product")
 <table>
     <thead>
+    @await Html.PartialAsync("Filter", new GetFilteringProductsWithPaginationQuery())
     <tr>
         <th>id</th>
         <th>Name</th>

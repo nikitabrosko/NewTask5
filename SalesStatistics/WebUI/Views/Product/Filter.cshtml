@@ -1,0 +1,11 @@
+﻿@model Application.UseCases.Products.Queries.GetFilteringProductsWithPagination.GetFilteringProductsWithPaginationQuery
+
+@using (Html.BeginForm("FilteringProductsPage", "Product", FormMethod.Post))
+{
+<tr>
+    <th>Search:</th>
+    <th>@Html.EditorFor(m => m.NameFilter)</th>
+    <th>@Html.EditorFor(m => m.PriceFilter, new { htmlAttributes = new { type = "number" } } )</th>
+    <th><input type="submit" value="Search"/></th>
+</tr>
+}
