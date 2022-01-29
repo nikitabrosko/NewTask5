@@ -1,28 +1,39 @@
 ﻿@model Application.UseCases.Orders.Commands.CreateOrder.CreateOrderCommand
 
-@using (Html.BeginForm("Create", "Order", FormMethod.Post))
+@{
+    var attributesForDate = new {htmlAttributes = new {required = "true", type="date"}};
+    var attributesForSum = new {htmlAttributes = new {required = "true", type = "number"}};
+    var attributesForId = new {htmlAttributes = new {required = "true", type = "number"}};
+}
+
+@using (Html.BeginForm("Create", "Order", FormMethod.Post, new { @id = "createOrderForm" }))
 {
     <div>
         @Html.Label("Date")
-        @Html.EditorFor(o => o.Date)
+        @Html.EditorFor(o => o.Date, attributesForDate)
     </div>
     <div>
         @Html.Label("Sum")
-        @Html.EditorFor(o => o.Sum)
+        @Html.EditorFor(o => o.Sum, attributesForSum)
     </div>
     <div>
         @Html.Label("Customer id")
-        @Html.EditorFor(o => o.CustomerId)
+        @Html.EditorFor(o => o.CustomerId, attributesForId)
     </div>
     <div>
         @Html.Label("Manager id")
-        @Html.EditorFor(o => o.ManagerId)
+        @Html.EditorFor(o => o.ManagerId, attributesForId)
     </div>
     <div>
         @Html.Label("Product id")
-        @Html.EditorFor(o => o.ProductId)
+        @Html.EditorFor(o => o.ProductId, attributesForId)
     </div>
     <div>
         <input type="submit" value="Save" />
     </div>
+    @section Scripts {
+        <script>
+            $("#createOrderForm").validate();
+        </script>
+    }
 }

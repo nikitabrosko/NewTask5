@@ -1,10 +1,12 @@
-﻿@using Application.UseCases.Orders.Queries.GetOrdersWithPagination
-@model Application.Common.Models.PaginatedList<Application.UseCases.Orders.Queries.GetOrdersWithPagination.OrderDto>
+﻿@using Application.UseCases.Orders.Queries.GetFilteringOrdersWithPagination
+@using Application.UseCases.Orders.Queries.GetOrdersWithPagination
+@model Application.Common.Models.PaginatedList<Application.Common.Models.OrderDto>
 
 <h2>Orders:</h2>
 @Html.ActionLink("Create order", "Create", "Order")
 <table>
     <thead>
+        @await Html.PartialAsync("Filter", new GetFilteringOrdersWithPaginationQuery())
         <tr>
             <th>id</th>
             <th>Date</th>
