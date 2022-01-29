@@ -1,13 +1,17 @@
-﻿@using Application.UseCases.Managers.Queries.GetManagersWithPagination
-@model Application.Common.Models.PaginatedList<Application.UseCases.Managers.Queries.GetManagersWithPagination.ManagerDto>
+﻿@using Application.UseCases.Managers.Queries.GetFilteringManagersWithPagination
+@using Application.UseCases.Managers.Queries.GetManagersWithPagination
+@model Application.Common.Models.PaginatedList<Application.Common.Models.ManagerDto>
 
-<h2>Managers:</h2>
-@Html.ActionLink("Create manager", "Create", "Manager")
-<table>
+<h2 class="text-center">Managers:</h2>
+<table class="table">
     <thead>
         <tr>
-            <th>id</th>
-            <th>Last name</th>
+            <th scope="col">@Html.ActionLink("Create manager", "Create", "Manager", new { }, new { @class = "btn btn-dark" })</th>
+            @await Html.PartialAsync("Filter", new GetFilteringManagersWithPaginationQuery())
+        </tr>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Last name</th>
         </tr>
     </thead>
     <tbody>

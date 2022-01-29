@@ -1,12 +1,22 @@
 ﻿@model Application.UseCases.Managers.Commands.CreateManager.CreateManagerCommand
 
-@using (Html.BeginForm("Create", "Manager", FormMethod.Post))
+<h2 class="text-center">Create customer</h2>
+
+@using (Html.BeginForm("Create", "Manager", FormMethod.Post, new { @id = "createManagerForm", @class = "form-group" }))
 {
-    <div>
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
         @Html.Label("Last name")
-        @Html.EditorFor(m => m.LastName)
+        @Html.EditorFor(m => m.LastName, new { htmlAttributes =
+            new { required = "true", minlength = "2", @class = "form-control", placeholder = "Last name" }})
     </div>
-    <div>
-        <input type="submit" value="Save" />
-    </div>
+    <input type="submit" value="Save" class="btn btn-dark" />
+    @Html.ActionLink("Back to List", "ManagersPage", new { }, new { @class = "btn btn-dark" })
+
+    @section Scripts {
+        <script>
+            $("#createManagerForm").validate();
+        </script>
+    }
 }

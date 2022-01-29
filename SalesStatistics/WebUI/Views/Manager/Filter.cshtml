@@ -1,0 +1,10 @@
+﻿@model Application.UseCases.Managers.Queries.GetFilteringManagersWithPagination.GetFilteringManagersWithPaginationQuery
+
+@using (Html.BeginForm("FilteringManagersPage", "Manager", FormMethod.Post))
+{
+<tr>
+    <th>Search:</th>
+    <th>@Html.EditorFor(m => m.LastNameFilter)</th>
+    <th><input type="submit" value="Search" /></th>
+</tr>
+}
