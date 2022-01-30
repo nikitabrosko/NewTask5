@@ -3,15 +3,16 @@
 @model Application.Common.Models.PaginatedList<Application.Common.Models.ManagerDto>
 
 <h2 class="text-center">Managers</h2>
-<table class="table">
+
+<table class="table text-center">
     <thead>
         <tr>
             <th scope="col">
                 @Html.ActionLink("Create manager", "Create", "Manager",
                 new { }, new { @class = "btn btn-dark" })
-        </th>
-        @await Html.PartialAsync("Filter", new GetFilteringManagersWithPaginationQuery())
-        <th scope="col"></th>
+            </th>
+            @await Html.PartialAsync("Filter", new GetFilteringManagersWithPaginationQuery())
+            <th scope="col"></th>
         </tr>
         <tr>
             <th scope="col">id</th>
