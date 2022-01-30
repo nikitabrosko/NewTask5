@@ -3,7 +3,7 @@
 <h2 class="text-center">Update customer</h2>
 
 @using (Html.BeginForm("Update", "Customer", FormMethod.Post, 
-    new { @id = "createCustomerForm", @class = "form-group" }))
+    new { @id = "updateCustomerForm", @class = "form-group" }))
 {
     @Html.AntiForgeryToken()
 
@@ -21,12 +21,14 @@
             new { required = "true", minlength = "2", @class = "form-control", placeholder="Last name" } })
     </div>
 
-    <input type="submit" value="Save" class="btn btn-dark" />
-    @Html.ActionLink("Back to List", "CustomersPage", new { }, new { @class = "btn btn-dark" })
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-dark" />
+        @Html.ActionLink("Back to List", "CustomersPage", new { }, new { @class = "btn btn-dark" })
+    </div>
 }
 
 @section Scripts {
     <script>
-        $("#createCustomerForm").validate();
+        $("#updateCustomerForm").validate();
     </script>
 }
