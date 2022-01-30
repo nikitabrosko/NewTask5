@@ -2,18 +2,27 @@
 @using Application.UseCases.Orders.Queries.GetOrdersWithPagination
 @model Application.Common.Models.PaginatedList<Application.Common.Models.OrderDto>
 
-<h2>Orders:</h2>
-@Html.ActionLink("Create order", "Create", "Order")
-<table>
+<h2 class="text-center">Orders</h2>
+
+<table class="table text-center">
     <thead>
-        @await Html.PartialAsync("Filter", new GetFilteringOrdersWithPaginationQuery())
         <tr>
-            <th>id</th>
-            <th>Date</th>
-            <th>Sum</th>
-            <th>Customer</th>
-            <th>Manager</th>
-            <th>Product</th>
+            <th scope="col">@Html.ActionLink("Create order", "Create", "Order",
+                new { }, new { @class = "btn btn-dark" })</th>
+            @await Html.PartialAsync("Filter", new GetFilteringOrdersWithPaginationQuery())
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Sum</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Manager</th>
+            <th scope="col">Product</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -26,8 +35,8 @@
             <td>@order.CustomerFullName</td>
             <td>@order.ManagerLastName</td>
             <td>@order.ProductName</td>
-            <td>@Html.ActionLink("Edit", "Update", new { order.Id })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { order.Id })</td>
+            <td>@Html.ActionLink("Edit", "Update", new { order.Id }, new { @class = "btn btn-dark" })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { order.Id }, new { @class = "btn btn-dark" })</td>
         </tr>
     }
     </tbody>

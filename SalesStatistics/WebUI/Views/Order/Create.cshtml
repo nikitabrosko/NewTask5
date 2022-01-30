@@ -1,39 +1,50 @@
 ﻿@model Application.UseCases.Orders.Commands.CreateOrder.CreateOrderCommand
 
-@{
-    var attributesForDate = new {htmlAttributes = new {required = "true", type="date"}};
-    var attributesForSum = new {htmlAttributes = new {required = "true", type = "number"}};
-    var attributesForId = new {htmlAttributes = new {required = "true", type = "number"}};
+<h2 class="text-center">Create order</h2>
+
+@using (Html.BeginForm("Create", "Order", FormMethod.Post, 
+    new { @id = "createOrderForm", @class = "form-group" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("Date")
+        @Html.EditorFor(o => o.Date, new { htmlAttributes = 
+            new { required = "true", type = "date", @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Sum")
+        @Html.EditorFor(o => o.Sum, new { htmlAttributes =
+            new { required = "true", type = "number", min = "0", @class = "form-control", placeholder = "Sum" } })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Customer id")
+        @Html.EditorFor(o => o.CustomerId, new { htmlAttributes = 
+            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder = "Customer id" } })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Manager id")
+        @Html.EditorFor(o => o.ManagerId, new { htmlAttributes =
+            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder = "Manager id" } })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Product id")
+        @Html.EditorFor(o => o.ProductId, new { htmlAttributes =
+            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder = "Product id" } })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-dark" />
+        @Html.ActionLink("Back to List", "OrdersPage", new { }, new { @class = "btn btn-dark" })
+    </div>
 }
 
-@using (Html.BeginForm("Create", "Order", FormMethod.Post, new { @id = "createOrderForm" }))
-{
-    <div>
-        @Html.Label("Date")
-        @Html.EditorFor(o => o.Date, attributesForDate)
-    </div>
-    <div>
-        @Html.Label("Sum")
-        @Html.EditorFor(o => o.Sum, attributesForSum)
-    </div>
-    <div>
-        @Html.Label("Customer id")
-        @Html.EditorFor(o => o.CustomerId, attributesForId)
-    </div>
-    <div>
-        @Html.Label("Manager id")
-        @Html.EditorFor(o => o.ManagerId, attributesForId)
-    </div>
-    <div>
-        @Html.Label("Product id")
-        @Html.EditorFor(o => o.ProductId, attributesForId)
-    </div>
-    <div>
-        <input type="submit" value="Save" />
-    </div>
-    @section Scripts {
-        <script>
-            $("#createOrderForm").validate();
-        </script>
-    }
+@section Scripts {
+    <script>
+        $("#createOrderForm").validate();
+    </script>
 }

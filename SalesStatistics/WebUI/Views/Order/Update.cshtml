@@ -1,57 +1,52 @@
 ﻿@model Application.UseCases.Orders.Commands.UpdateOrder.UpdateOrderCommand
 
-@using (Html.BeginForm("Update", "Order", FormMethod.Post))
+<h2 class="text-center">Update order</h2>
+
+@using (Html.BeginForm("Update", "Order", FormMethod.Post, 
+    new { @id = "updateManagerForm", @class = "form-group" }))
 {
     @Html.AntiForgeryToken();
 
-    @Html.ValidationSummary(true, "")
     @Html.HiddenFor(o => o.Id)
 
-    <div>
+    <div class="form-group">
         @Html.LabelFor(o => o.Date)
-        <div>
-            @Html.EditorFor(o => o.Date)
-            @Html.ValidationMessageFor(o => o.Date)
-        </div>
+        @Html.EditorFor(o => o.Date, new { htmlAttributes = 
+            new { required = "true", @class = "form-control" } })
     </div>
 
-    <div>
+    <div class="form-group">
         @Html.LabelFor(o => o.Sum)
-        <div>
-            @Html.EditorFor(o => o.Sum)
-            @Html.ValidationMessageFor(o => o.Sum)
-        </div>
+        @Html.EditorFor(o => o.Sum, new { htmlAttributes =
+            new { required = "true", type = "number", min = "0", @class = "form-control", placeholder="Sum" } })
     </div>
 
-    <div>
+    <div class="form-group">
         @Html.LabelFor(o => o.CustomerId)
-        <div>
-            @Html.EditorFor(o => o.CustomerId)
-            @Html.ValidationMessageFor(o => o.CustomerId)
-        </div>
+        @Html.EditorFor(o => o.CustomerId, new { htmlAttributes =
+            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder="Customer id" } })
     </div>
 
-    <div>
+    <div class="form-group">
         @Html.LabelFor(o => o.ManagerId)
-        <div>
-            @Html.EditorFor(o => o.ManagerId)
-            @Html.ValidationMessageFor(o => o.ManagerId)
-        </div>
+        @Html.EditorFor(o => o.ManagerId, new { htmlAttributes =
+            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder="Manager id" } })
     </div>
 
-    <div>
+    <div class="form-group">
         @Html.LabelFor(o => o.ProductId)
-        <div>
-            @Html.EditorFor(o => o.ProductId)
-            @Html.ValidationMessageFor(o => o.ProductId)
-        </div>
+        @Html.EditorFor(o => o.ProductId, new { htmlAttributes = 
+            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder="Product id" } })
     </div>
 
-    <div>
-        <input type="submit" value="Save" />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-dark" />
+        @Html.ActionLink("Back to List", "OrdersPage", new {}, new{@class = "btn btn-dark" })
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "OrdersPage")
-</div>
+@section Scripts {
+    <script>
+        $("#updateOrderForm").validate();
+    </script>
+}
