@@ -61,11 +61,12 @@ namespace WebUI.Controllers
 
         [HttpDelete("{id}")]
         [Route("Delete/{id:int}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id,
+            [FromQuery] GetManagersWithPaginationQuery query)
         {
             await Mediator.Send(new DeleteManagerCommand { Id = id });
 
-            return NoContent();
+            return View("ManagersData", await Mediator.Send(query));
         }
     }
 }
