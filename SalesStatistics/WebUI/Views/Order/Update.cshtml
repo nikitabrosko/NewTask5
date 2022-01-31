@@ -1,52 +1,70 @@
 ﻿@model Application.UseCases.Orders.Commands.UpdateOrder.UpdateOrderCommand
 
-<h2 class="text-center">Update order</h2>
+@{
+    Layout = null;
+}
 
-@using (Html.BeginForm("Update", "Order", FormMethod.Post, 
-    new { @id = "updateManagerForm", @class = "form-group" }))
+@await Html.PartialAsync("_StylesImportPartial")
+
+@using (Html.BeginForm("Update", "Order", FormMethod.Post,
+  new { @id = "updateManagerForm", @class = "form-group" }))
 {
     @Html.AntiForgeryToken();
 
     @Html.HiddenFor(o => o.Id)
 
     <div class="form-group">
-        @Html.LabelFor(o => o.Date)
-        @Html.EditorFor(o => o.Date, new { htmlAttributes = 
-            new { required = "true", @class = "form-control" } })
+        @Html.Label("Date")
+        @Html.EditorFor(o => o.Date, new
+        {
+            htmlAttributes = new { required = "true", @class = "form-control" }
+        })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(o => o.Sum)
-        @Html.EditorFor(o => o.Sum, new { htmlAttributes =
-            new { required = "true", type = "number", min = "0", @class = "form-control", placeholder="Sum" } })
+        @Html.Label("Sum")
+        @Html.EditorFor(o => o.Sum, new
+        {
+            htmlAttributes = new { required = "true", type = "number", min = "0", 
+                @class = "form-control", placeholder = "Sum" }
+        })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(o => o.CustomerId)
-        @Html.EditorFor(o => o.CustomerId, new { htmlAttributes =
-            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder="Customer id" } })
+        @Html.Label("Customer id")
+        @Html.EditorFor(o => o.CustomerId, new
+        {
+            htmlAttributes = new { required = "true", type = "number", min = "1", 
+                @class = "form-control", placeholder = "Customer id" }
+        })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(o => o.ManagerId)
-        @Html.EditorFor(o => o.ManagerId, new { htmlAttributes =
-            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder="Manager id" } })
+        @Html.Label("Manager id")
+        @Html.EditorFor(o => o.ManagerId, new
+        {
+            htmlAttributes = new { required = "true", type = "number", min = "1", 
+                @class = "form-control", placeholder = "Manager id" }
+        })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(o => o.ProductId)
-        @Html.EditorFor(o => o.ProductId, new { htmlAttributes = 
-            new { required = "true", type = "number", min = "1", @class = "form-control", placeholder="Product id" } })
+        @Html.Label("Product id")
+        @Html.EditorFor(o => o.ProductId, new
+        {
+            htmlAttributes = new { required = "true", type = "number", min = "1", 
+                @class = "form-control", placeholder = "Product id" }
+        })
     </div>
 
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-dark" />
-        @Html.ActionLink("Back to List", "OrdersPage", new {}, new{@class = "btn btn-dark" })
     </div>
 }
 
-@section Scripts {
-    <script>
-        $("#updateOrderForm").validate();
-    </script>
-}
+@await Html.PartialAsync("_ScriptsImportPartial")
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script>
+    $("#updateOrderForm").validate();
+</script>

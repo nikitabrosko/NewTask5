@@ -1,22 +1,23 @@
 ﻿@model Application.UseCases.Orders.Queries.GetFilteringOrdersWithPagination.GetFilteringOrdersWithPaginationQuery
 
+@await Html.PartialAsync("_ScriptsImportPartial")
+
 @using (Html.BeginForm("FilteringOrdersPage", "Order", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <th scope="col">
         @Html.EditorFor(m => m.DateFromFilter,
-        new { htmlAttributes = new { type = "date", @id = "dateFrom", @class = "dateElements", style = "text-align: center" } })
+        new { htmlAttributes = new { type = "date", @id = "dateFrom", @class = "dateElements" } })
     </th>
     <th scope="col">
         @Html.EditorFor(m => m.DateToFilter,
-        new { htmlAttributes = new { type = "date", @id = "dateTo", @class = "dateElements", style = "text-align: center" } })
+        new { htmlAttributes = new { type = "date", @id = "dateTo", @class = "dateElements" } })
     </th>
     <th scope="col">
         @Html.EditorFor(m => m.Sum,
-        new { htmlAttributes = new { type = "number", min = "0", placeholder = "Sum", style = "width: 100px; text-align: center" } })
+        new { htmlAttributes = new { type = "number", min = "0", placeholder = "Sum" } })
     </th>
-    <th scope="col"><input type="submit" value="Search" class="btn btn-dark" /></th>
-    <th scope="col"><input type="reset" value="Clear" class="btn btn-dark" /></th>
+    <th scope="col"><input type="submit" value="Search" class="btn btn-dark"/></th>
 }
 
 <script>
