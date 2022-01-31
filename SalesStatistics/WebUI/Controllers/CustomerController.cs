@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Application.Common.Exceptions;
 using Application.Common.Models;
 using Application.UseCases.Customers.Commands.CreateCustomer;
 using Application.UseCases.Customers.Commands.DeleteCustomer;
@@ -16,6 +18,12 @@ namespace WebUI.Controllers
             [FromQuery] GetCustomersWithPaginationQuery query)
         {
             return View(await Mediator.Send(query));
+        }
+
+        [HttpGet]
+        public IActionResult Filter()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -61,11 +69,12 @@ namespace WebUI.Controllers
 
         [HttpDelete("{id}")]
         [Route("Delete/{id:int}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id,
+            [FromQuery] GetCustomersWithPaginationQuery query)
         {
-            await Mediator.Send(new DeleteCustomerCommand {Id = id});
+            await Mediator.Send(new DeleteCustomerCommand { Id = id });
 
-            return NoContent();
+            return View("CustomersData", await Mediator.Send(query));
         }
     }
 }
