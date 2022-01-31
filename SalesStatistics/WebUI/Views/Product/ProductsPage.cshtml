@@ -3,39 +3,28 @@
 @model Application.Common.Models.PaginatedList<Application.Common.Models.ProductDto>
 
 <h2 class="text-center">Products</h2>
+
 <table class="table text-center">
     <thead>
         <tr>
-            <th scope="col">
-                @Html.ActionLink("Create product", "Create", "Product",
-                    new { }, new { @class = "btn btn-dark" })
+            <th>
+                <button onclick="showInPopup('@Url.Action("Create", "Product", null, Context.Request.Scheme)', 'Create product')"
+                        class="btn btn-dark">
+                    Create product
+                </button>
             </th>
+            @*<th><button onclick="showInPopup('@Url.Action("Filter", "Customer",
+                                      new GetFilteringCustomersWithPaginationQuery(),
+                                      Context.Request.Scheme)', 'Search customers')"
+            class="btn btn-dark">Search</button></th>*@
             @await Html.PartialAsync("Filter", new GetFilteringProductsWithPaginationQuery())
-            <th scope="col"></th>
-        </tr>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var product in Model.Items)
-        {
-            <tr>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>@Html.ActionLink("Edit", "Update", new { product.Id }, 
-                        new { @class = "btn btn-dark" })</td>
-                <td>@Html.ActionLink("Delete", "Delete", new { product.Id }, 
-                        new { @class = "btn btn-dark" })</td>
-            </tr>
-        }
-    </tbody>
 </table>
+
+<div id="products-data">
+    @await Html.PartialAsync("ProductsData", Model)
+</div>
 
 <div>
     @if (Model.HasPreviousPage)

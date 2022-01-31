@@ -1,33 +1,43 @@
 ﻿@model Application.UseCases.Products.Commands.UpdateProduct.UpdateProductCommand
 
-<h2 class="text-center">Update product</h2>
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("_StylesImportPartial")
 
 @using (Html.BeginForm("Update", "Product", FormMethod.Post,
-   new { @id = "updateProductForm", @class = "form-group" }))
+  new { @id = "updateProductForm", @class = "form-group" }))
 {
     @Html.AntiForgeryToken();
 
     @Html.HiddenFor(p => p.Id)
 
     <div class="form-group">
-        @Html.LabelFor(p => p.Name)
-        @Html.EditorFor(p => p.Name, new { htmlAttributes = 
-            new { required = "true", minlength = "2", @class = "form-control", placeholder="Name" } })
+        @Html.Label("Name")
+        @Html.EditorFor(p => p.Name, new
+        {
+            htmlAttributes = new { required = "true", minlength = "2", maxlength="30", 
+                type="text", @class = "form-control", placeholder = "Name" }
+        })
     </div>
     <div class="form-group">
-        @Html.LabelFor(p => p.Price)
-        @Html.EditorFor(p => p.Price, new { htmlAttributes =
-            new { required = "true", type = "number", min = "0", @class = "form-control", placeholder="Price" } })
+        @Html.Label("Price")
+        @Html.EditorFor(p => p.Price, new
+        {
+            htmlAttributes = new { required = "true", type = "number", min = "0", 
+                @class = "form-control", placeholder = "Price" }
+        })
     </div>
 
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-dark" />
-        @Html.ActionLink("Back to List", "ProductsPage", new { }, new { @class = "btn btn-dark" })
     </div>
 }
 
-@section Scripts {
-    <script>
-        $("#updateProductForm").validate();
-    </script>
-}
+@await Html.PartialAsync("_ScriptsImportPartial")
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script>
+    $("#updateProductForm").validate();
+</script>
