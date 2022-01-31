@@ -3,37 +3,28 @@
 @model Application.Common.Models.PaginatedList<Application.Common.Models.CustomerDto>
 
 <h2 class="text-center">Customers</h2>
+
 <table class="table text-center">
     <thead>
         <tr>
-            <th scope="col">@Html.ActionLink("Create customer", "Create", "Customer", 
-                                new{}, new{ @class = "btn btn-dark" })</th>
+            <th>
+                <button onclick="showInPopup('@Url.Action("Create", "Customer", null, Context.Request.Scheme)', 'Create customer')"
+                        class="btn btn-dark">
+                    Create customer
+                </button>
+            </th>
+            @*<th><button onclick="showInPopup('@Url.Action("Filter", "Customer",
+                                      new GetFilteringCustomersWithPaginationQuery(),
+                                      Context.Request.Scheme)', 'Search customers')"
+            class="btn btn-dark">Search</button></th>*@
             @await Html.PartialAsync("Filter", new GetFilteringCustomersWithPaginationQuery())
-            <th scope="col"></th>
-        </tr>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th scope="col">Full name</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
         </tr>
     </thead>
-    <tbody>
-    @foreach (var customer in Model.Items)
-    {
-        <tr>
-            <td>@customer.Id</td>
-            <td>@customer.FirstName</td>
-            <td>@customer.LastName</td>
-            <td>@customer.FullName</td>
-            <td>@Html.ActionLink("Edit", "Update", new { customer.Id }, new { @class= "btn btn-dark" })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { customer.Id }, new { @class = "btn btn-dark" })</td>
-        </tr>
-        }
-    </tbody>
 </table>
+
+<div id="customers-data">
+    @await Html.PartialAsync("CustomersData", Model)
+</div>
 
 <div>
     @if (Model.HasPreviousPage)

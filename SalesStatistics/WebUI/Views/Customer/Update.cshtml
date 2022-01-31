@@ -1,34 +1,44 @@
 ﻿@model Application.UseCases.Customers.Commands.UpdateCustomer.UpdateCustomerCommand
 
-<h2 class="text-center">Update customer</h2>
+@{
+    Layout = null;
+}
 
-@using (Html.BeginForm("Update", "Customer", FormMethod.Post, 
-    new { @id = "updateCustomerForm", @class = "form-group" }))
+@await Html.PartialAsync("_StylesImportPartial")
+
+@using (Html.BeginForm("Update", "Customer", FormMethod.Post,
+  new { @id = "updateCustomerForm", @class = "form-group" }))
 {
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(c => c.Id)
 
     <div class="form-group">
-        @Html.LabelFor(c => c.FirstName)
-        @Html.EditorFor(c => c.FirstName, new { htmlAttributes = 
-            new { required = "true", minlength = "2", @class = "form-control", placeholder="First name" } })
+        @Html.Label("First name")
+        @Html.EditorFor(c => c.FirstName, new
+        {
+            htmlAttributes = new { required = "true", minlength = "2", maxlength = "20", 
+                type = "text", @class = "form-control", placeholder = "First name" }
+        })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(c => c.LastName)
-        @Html.EditorFor(c => c.LastName, new { htmlAttributes = 
-            new { required = "true", minlength = "2", @class = "form-control", placeholder="Last name" } })
+        @Html.Label("Last name")
+        @Html.EditorFor(c => c.LastName, new
+        {
+            htmlAttributes = new { required = "true", minlength = "2", maxlength = "30", 
+                type="text", @class = "form-control", placeholder = "Last name" }
+        })
     </div>
 
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-dark" />
-        @Html.ActionLink("Back to List", "CustomersPage", new { }, new { @class = "btn btn-dark" })
     </div>
 }
 
-@section Scripts {
-    <script>
-        $("#updateCustomerForm").validate();
-    </script>
-}
+@await Html.PartialAsync("_ScriptsImportPartial")
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script>
+    $("#updateCustomerForm").validate();
+</script>

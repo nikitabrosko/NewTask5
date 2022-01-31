@@ -1,6 +1,10 @@
 ﻿@model Application.UseCases.Customers.Commands.CreateCustomer.CreateCustomerCommand
 
-<h2 class="text-center">Create customer</h2>
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("_StylesImportPartial")
 
 @using (Html.BeginForm("Create", "Customer", FormMethod.Post, 
     new { @id = "createCustomerForm", @class = "form-group" }))
@@ -9,27 +13,31 @@
 
     <div class="form-group">
         @Html.Label("First name")
-        @Html.EditorFor(m => m.FirstName, new { htmlAttributes =
-            new { required = "true", minlength = "2", maxlength = "20", @class = "form-control", 
-                placeholder="First name", type = "text" } })
+        @Html.EditorFor(m => m.FirstName, new 
+        { 
+            htmlAttributes = new { required = "true", minlength = "2", maxlength = "20", 
+                @class = "form-control", placeholder="First name", type = "text" }
+        })
     </div>
 
     <div class="form-group">
         @Html.Label("Last name")
-        @Html.EditorFor(m => m.LastName, new { htmlAttributes =
-            new { required = "true", minlength = "2", maxlength = "30", @class = "form-control", 
-                placeholder="Last name", type="text" } })
+        @Html.EditorFor(m => m.LastName, new 
+        { 
+            htmlAttributes =
+            new { required = "true", minlength = "2", maxlength = "30", 
+                @class = "form-control", placeholder="Last name", type="text" }
+        })
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-dark" />
-        @Html.ActionLink("Back to List", "CustomersPage", 
-            new { }, new { @class = "btn btn-dark" })
+        <input type="submit" value="Save" class="btn btn-dark" style="width: 100%" />
     </div>
 }
 
-@section Scripts {
-    <script>
-        $("#createCustomerForm").validate();
-    </script>
-}
+@await Html.PartialAsync("_ScriptsImportPartial")
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script>
+    $("#createCustomerForm").validate();
+</script>
