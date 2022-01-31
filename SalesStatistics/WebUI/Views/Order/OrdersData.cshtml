@@ -1,0 +1,43 @@
+﻿@model Application.Common.Models.PaginatedList<Application.Common.Models.OrderDto>
+
+@{
+    Layout = null;
+}
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Sum</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Manager</th>
+            <th scope="col">Product</th>
+            <th scope="col" style="width:100px"></th>
+            <th scope="col" style="width:100px"></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in Model.Items)
+    {
+        <tr>
+            <td>@order.Id</td>
+            <td>@order.Date</td>
+            <td>@order.Sum</td>
+            <td>@order.CustomerFullName</td>
+            <td>@order.ManagerLastName</td>
+            <td>@order.ProductName</td>
+            <td>
+                <button onclick="showInPopup('@Url.Action("Update", "Order", new { order.Id },
+                                                  Context.Request.Scheme)', 'Edit order')" 
+                        class="btn btn-dark">Edit</button>
+            </td>
+            <td>
+                <button onclick="jQueryAjaxDelete('@Url.Action("Delete", "Order",
+                                                       new {order.Id}, Context.Request.Scheme)', '#orders-data')"
+                        class="btn btn-dark">Delete</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
