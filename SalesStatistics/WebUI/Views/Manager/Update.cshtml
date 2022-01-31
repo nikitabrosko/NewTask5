@@ -1,28 +1,35 @@
 ﻿@model Application.UseCases.Managers.Commands.UpdateManager.UpdateManagerCommand
 
-<h2 class="text-center">Update manager</h2>
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("_StylesImportPartial")
 
 @using (Html.BeginForm("Update", "Manager", FormMethod.Post,
-       new { @id = "updateManagerForm", @class = "form-group" }))
+     new { @id = "updateManagerForm", @class = "form-group" }))
 {
     @Html.AntiForgeryToken();
 
     @Html.HiddenFor(m => m.Id)
 
     <div class="form-group">
-        @Html.LabelFor(m => m.LastName)
-        @Html.EditorFor(m => m.LastName, new { htmlAttributes = 
-            new { required = "true", minlength = "2", @class = "form-control", placeholder="Last name" } })
+        @Html.Label("Last name")
+        @Html.EditorFor(m => m.LastName, new
+   {
+       htmlAttributes = new { required = "true", minlength = "2", maxlength = "30", 
+           type = "text", @class = "form-control", placeholder = "Last name" }
+   })
     </div>
 
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-dark" />
-        @Html.ActionLink("Back to List", "ManagersPage", new { }, new { @class = "btn btn-dark" })
     </div>
 }
 
-@section Scripts {
-    <script>
-        $("#updateManagerForm").validate();
-    </script>
-}
+@await Html.PartialAsync("_ScriptsImportPartial")
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script>
+    $("#updateManagerForm").validate();
+</script>
