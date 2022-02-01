@@ -7,13 +7,12 @@ namespace Application.UseCases.Products.Commands.CreateProduct
         public CreateProductCommandValidator()
         {
             RuleFor(v => v.Name)
-                .MaximumLength(30)
-                .NotEmpty()
-                .WithMessage("Name is required");
+                .MinimumLength(2).WithMessage("Name length must be greater than or equal to 2!")
+                .MaximumLength(30).WithMessage("Name length must be lower than or equal to 30!")
+                .NotEmpty().WithMessage("Name is required!");
 
             RuleFor(v => v.Price)
-                .GreaterThanOrEqualTo(0)
-                .WithMessage("Price must be greater than or equal to 0");
+                .GreaterThanOrEqualTo(0).WithMessage("Price must be greater than or equal to 0");
         }
     }
 }
