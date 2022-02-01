@@ -1,0 +1,26 @@
+﻿<ul class="navbar nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item" style="margin-right: 10px">
+            <span class="navbar-text text-dark">Hello @User.Identity.Name!</span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn btn-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item" style="margin-right: 10px">
+            <button onclick="showInPopup('@Url.Action("Register", "Account", null, Context.Request.Scheme)', 'Register')"
+                    class="nav-link btn btn-dark">
+                Register
+            </button>
+        </li>
+        <li class="nav-item">
+            <button onclick="showInPopup('@Url.Action("Login", "Account", null, Context.Request.Scheme)', 'Login')"
+                    class="nav-link btn btn-dark">
+                Login
+            </button>
+        </li>
+    }
+</ul> 
