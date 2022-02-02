@@ -79,3 +79,35 @@ body {
 .navbar-brand-custom {
     font-size: 1.7rem;
 }
+
+.remember-me-checkbox {
+    width: 25px;
+    height: 25px;
+    margin-left: 3%;
+}
+
+.carousel-item-background {
+    width: 100%;
+    height: 400px;
+    background-color: darkgrey;
+}
+
+.carousel-item-background-child {
+    font-size: 1000%;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    line-height: 360px;
+    transition: 1s;
+}
+
+    .carousel-item-background-child:hover {
+        text-decoration: none;
+        color: dimgrey;
+        transition: 1s;
+    }
+
+.error-message {
+    margin: 5%;
+}
