@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Exceptions;
 using Application.Common.Interfaces;
@@ -24,6 +25,14 @@ namespace Application.UseCases.Products.Commands.UpdateProduct
             if (entity is null)
             {
                 throw new NotFoundException(nameof(Product), request.Id);
+            }
+
+            var checkForExistsEntity = _context.Products
+                .Any(product => product.Name.Equals(entity.Name));
+
+            if (checkForExistsEntity)
+            {
+                throw new ItemExistsException($"{nameof(Product)} with name, that you write, is already exists!");
             }
 
             entity.Name = request.Name;
