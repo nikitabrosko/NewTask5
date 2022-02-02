@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Exceptions;
 using Application.Common.Interfaces;
@@ -24,6 +25,14 @@ namespace Application.UseCases.Managers.Commands.UpdateManager
             if (entity is null)
             {
                 throw new NotFoundException(nameof(Manager), request.Id);
+            }
+
+            var checkForExistsEntity = _context.Managers
+                .Any(manager => manager.LastName.Equals(entity.LastName));
+
+            if (checkForExistsEntity)
+            {
+                throw new ItemExistsException($"{nameof(Manager)} with last name, that you write, is already exists!");
             }
 
             entity.LastName = request.LastName;
