@@ -1,8 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
+using System.Linq;
 
 namespace Application.UseCases.Products.Commands.CreateProduct
 {
@@ -22,6 +24,14 @@ namespace Application.UseCases.Products.Commands.CreateProduct
                 Name = request.Name,
                 Price = request.Price
             };
+
+            var checkForExistsEntity = _context.Products
+                .Any(product => product.Name.Equals(entity.Name));
+
+            if (checkForExistsEntity)
+            {
+                throw new ItemExistsException($"{nameof(Product)} with name, that you write, is already exists!");
+            }
 
             await _context.Products.AddAsync(entity, cancellationToken);
 
