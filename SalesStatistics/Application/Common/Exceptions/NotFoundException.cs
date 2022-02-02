@@ -23,7 +23,7 @@ namespace Application.Common.Exceptions
         }
 
         public NotFoundException(string name, object key) 
-            : base($"Entity \"{name}\" ({key}) was not found!")
+            : base($"{name} with id {key} was not found!")
         {
             
         }
