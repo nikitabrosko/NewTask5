@@ -30,7 +30,7 @@ namespace Application.UseCases.Orders.Commands.CreateOrder
                 Manager = managerEntity,
                 Product = productEntity
             };
-
+            
             await _context.Orders.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
