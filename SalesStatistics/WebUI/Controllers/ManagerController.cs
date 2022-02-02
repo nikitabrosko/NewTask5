@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Application.Common.Exceptions;
 using Application.Common.Models;
 using Application.UseCases.Managers.Commands.CreateManager;
 using Application.UseCases.Managers.Commands.DeleteManager;
@@ -39,7 +40,14 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromForm] CreateManagerCommand command)
         {
-            await Mediator.Send(command);
+            try
+            {
+                await Mediator.Send(command);
+            }
+            catch (ItemExistsException exception)
+            {
+                return View("Error", exception.Message);
+            }
 
             return RedirectToAction("ManagersPage");
         }
@@ -54,7 +62,14 @@ namespace WebUI.Controllers
         [Route("Update/{command}")]
         public async Task<IActionResult> Update([FromForm] UpdateManagerCommand command)
         {
-            await Mediator.Send(command);
+            try
+            {
+                await Mediator.Send(command);
+            }
+            catch (ItemExistsException exception)
+            {
+                return View("Error", exception.Message);
+            }
 
             return RedirectToAction("ManagersPage");
         }

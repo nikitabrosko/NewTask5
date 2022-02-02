@@ -47,7 +47,14 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromForm] CreateCustomerCommand command)
         {
-            await Mediator.Send(command);
+            try
+            {
+                await Mediator.Send(command);
+            }
+            catch (ItemExistsException exception)
+            {
+                return View("Error", exception.Message);
+            }
 
             return RedirectToAction("CustomersPage");
         }
@@ -62,7 +69,14 @@ namespace WebUI.Controllers
         [Route("Update/{command}")]
         public async Task<IActionResult> Update([FromForm] UpdateCustomerCommand command)
         {
-            await Mediator.Send(command);
+            try
+            {
+                await Mediator.Send(command);
+            }
+            catch (ItemExistsException exception)
+            {
+                return View("Error", exception.Message);
+            }
 
             return RedirectToAction("CustomersPage");
         }

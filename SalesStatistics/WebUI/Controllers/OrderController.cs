@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Application.Common.Exceptions;
 using Application.Common.Models;
 using Application.UseCases.Orders.Commands.CreateOrder;
 using Application.UseCases.Orders.Commands.DeleteOrder;
@@ -39,7 +41,14 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromForm] CreateOrderCommand command)
         {
-            await Mediator.Send(command);
+            try
+            {
+                await Mediator.Send(command);
+            }
+            catch (NotFoundException exception)
+            {
+                return View("Error", exception.Message);
+            }
 
             return RedirectToAction("OrdersPage");
         }
@@ -54,7 +63,14 @@ namespace WebUI.Controllers
         [Route("Update/{command}")]
         public async Task<IActionResult> Update([FromForm] UpdateOrderCommand command)
         {
-            await Mediator.Send(command);
+            try
+            {
+                await Mediator.Send(command);
+            }
+            catch (NotFoundException exception)
+            {
+                return View("Error", exception.Message);
+            }
 
             return RedirectToAction("OrdersPage");
         }
