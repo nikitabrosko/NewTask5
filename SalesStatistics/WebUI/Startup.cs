@@ -27,7 +27,11 @@ namespace WebUI
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
                 .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
             
             services.AddHttpContextAccessor();
