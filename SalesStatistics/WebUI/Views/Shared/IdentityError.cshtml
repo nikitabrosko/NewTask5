@@ -1,11 +1,12 @@
-﻿@model IList<string>
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityError>
 
 <h1 class="text-danger text-center">Error.</h1>
 <h2 class="text-danger text-center">An error occurred while processing your request.</h2>
 
-@if (Model.Count is 1)
+@if (Model.Count() is 1)
 {
-    <p class="text-danger text-center error-message">Message: @Model[0]</p>
+    var error = @Model.Single();
+    <p class="text-danger text-center error-message">Message: @error.Description</p>
 }
 else
 {
@@ -13,6 +14,6 @@ else
 
     foreach (var error in Model)
     {
-        <p>@error</p>
+        <p>@error.Description</p>
     }
 }
