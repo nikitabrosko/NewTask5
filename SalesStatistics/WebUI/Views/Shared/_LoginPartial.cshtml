@@ -2,10 +2,13 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item" style="margin-right: 10px">
-            <span class="navbar-text text-dark">Hello @User.Identity.Name!</span>
+            <span class="navbar-text text-dark">@User.Identity.Name</span>
         </li>
         <li class="nav-item">
             <a class="nav-link btn btn-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn btn-dark" asp-controller="User" asp-action="UsersPage">Manage users</a>
         </li>
     }
     else
@@ -21,6 +24,12 @@
                     class="nav-link btn btn-dark">
                 Login
             </button>
+        </li>
+    }
+    @if (User.Identity.Name is "admin")
+    {
+        <li class="nav-item">
+            <a class="nav-link btn btn-dark" asp-controller="User" asp-action="UsersPage">Manage users</a>
         </li>
     }
 </ul> 
