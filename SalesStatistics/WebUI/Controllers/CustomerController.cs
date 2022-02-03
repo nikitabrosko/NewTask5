@@ -53,7 +53,7 @@ namespace WebUI.Controllers
             }
             catch (ItemExistsException exception)
             {
-                return View("Error", exception.Message);
+                return View("Error", new []{exception.Message});
             }
 
             return RedirectToAction("CustomersPage");
@@ -75,7 +75,7 @@ namespace WebUI.Controllers
             }
             catch (ItemExistsException exception)
             {
-                return View("Error", exception.Message);
+                return View("Error", new[] { exception.Message });
             }
 
             return RedirectToAction("CustomersPage");

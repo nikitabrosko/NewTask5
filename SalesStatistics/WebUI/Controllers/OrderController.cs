@@ -47,7 +47,7 @@ namespace WebUI.Controllers
             }
             catch (NotFoundException exception)
             {
-                return View("Error", exception.Message);
+                return View("Error", new[] { exception.Message });
             }
 
             return RedirectToAction("OrdersPage");
@@ -69,7 +69,7 @@ namespace WebUI.Controllers
             }
             catch (NotFoundException exception)
             {
-                return View("Error", exception.Message);
+                return View("Error", new[] { exception.Message });
             }
 
             return RedirectToAction("OrdersPage");
