@@ -1,0 +1,41 @@
+﻿@model Application.Common.Models.PaginatedList<Application.UseCases.Identity.User.Queries.GetUsersWithPagination.UserDto>
+
+@{
+    Layout = null;
+}
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">User name</th>
+            <th scope="col">Email</th>
+            <th scope="col" style="width:100px"></th>
+            <th scope="col" style="width:100px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Items)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>
+                    <button onclick="showInPopup('@Url.Action("Update", "User", new { user.Id },
+                                                  Context.Request.Scheme)', 'Edit user')"
+                            class="btn btn-dark">
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button onclick="jQueryAjaxDelete('@Url.Action("Delete", "User", new { user.Id }, 
+                                                           Context.Request.Scheme)', '#users-data')"
+                            class="btn btn-dark">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
