@@ -29,13 +29,14 @@ namespace WebUI.Controllers.Identity
             return RedirectToAction("UsersPage");
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult Update([FromRoute] string id)
         {
-            return View(id);
+            return View(new UpdateUserCommand { Id = id });
         }
 
-        [HttpPost]
+        [HttpPost("{command}")]
+        [Route("Update/{command}")]
         public async Task<IActionResult> Update([FromForm] UpdateUserCommand command)
         {
             await Mediator.Send(command);
@@ -44,12 +45,20 @@ namespace WebUI.Controllers.Identity
         }
 
         [HttpDelete("{id}")]
-        [Route("Delete/{id:int}")]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
-            await Mediator.Send(new DeleteUserCommand {Id = id});
+            await Mediator.Send(new DeleteUserCommand { Id = id });
 
             return RedirectToAction("UsersPage");
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword(string name)
+        {
+            ViewBag.UserName = name;
+
+            return View();
         }
     }
 }
