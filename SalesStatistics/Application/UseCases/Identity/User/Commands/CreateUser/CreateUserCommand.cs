@@ -1,6 +1,4 @@
-﻿using Application.Common.Models;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
 
 namespace Application.UseCases.Identity.User.Commands.CreateUser
 {
