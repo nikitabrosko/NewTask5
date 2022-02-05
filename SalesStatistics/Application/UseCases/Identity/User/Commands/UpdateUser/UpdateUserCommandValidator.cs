@@ -8,7 +8,7 @@ namespace Application.UseCases.Identity.User.Commands.UpdateUser
         {
             RuleFor(v => v.Name)
                 .MinimumLength(2).WithMessage("User name length must be greater than or equal to 2!")
-                .MaximumLength(20).WithMessage("User name length must be lower than or equal to 20!");
+                .MaximumLength(20).WithMessage("User name length must be lower than or equal to 0!");
 
             RuleFor(v => v.Email)
                 .MinimumLength(5).WithMessage("Email length must be greater than or equal to 2!")
