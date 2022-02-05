@@ -24,8 +24,7 @@ namespace Application.UseCases.Identity.User.Queries.GetUsersWithPagination
                     Id = user.Id,
                     Email = user.Email,
                     Name = user.UserName
-                })
-                .OrderBy(user => user.Id);
+                });
 
             return PaginatedList<UserDto>.CreateAsync(query, request.PageNumber, request.PageSize);
         }
