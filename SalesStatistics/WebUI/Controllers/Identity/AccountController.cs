@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Application.Common.Exceptions;
 using Application.UseCases.Identity.User.Commands.CreateUser;
 using Application.UseCases.Identity.User.Queries.LoginUser;
 using Domain.IdentityEntities;
@@ -34,36 +36,34 @@ namespace WebUI.Controllers.Identity
 
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                return View("IdentityError", result.Result.Errors);
-            }
 
-            return View();
+            return View("IdentityError", result.Result.Errors);
         }
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new LoginUserQuery {ReturnUrl = returnUrl});
+            return PartialView("_SignInPartial", new LoginUserQuery {ReturnUrl = returnUrl});
         }
 
         [HttpPost]
         public async Task<IActionResult> Login([FromForm] LoginUserQuery query)
         {
-            var result = await Mediator.Send(query);
-
-            if (result.Succeeded)
+            try
             {
-                if (!string.IsNullOrEmpty(query.ReturnUrl) && Url.IsLocalUrl(query.ReturnUrl))
+                var result = await Mediator.Send(query);
+
+                if (result.Succeeded)
                 {
-                    return Redirect(query.ReturnUrl);
+                    return RedirectToAction("Index", "Home");
                 }
 
-                return RedirectToAction("Index", "Home");
+                return Content("Something went wrong. Check password!");
             }
-
-            return View(query);
+            catch (NotFoundException exception)
+            {
+                return Content(exception.Message);
+            }
         }
 
         [HttpGet]
