@@ -1,0 +1,46 @@
+﻿@model Application.UseCases.Identity.User.Queries.LoginUser.LoginUserQuery
+
+<div class="dropdown-menu dropdown-menu-right" id="menuContainer">
+    <form class="px-4 py-3" method="post" asp-controller="Account" asp-action="Login" id="loginAccountForm">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.Label("Name")
+            @Html.EditorFor(m => m.Name, new
+            {
+                htmlAttributes = new
+                {
+                    required = "true", minlength = "2", maxlength = "40",
+                    @class = "form-control", placeholder = "Name", type = "text"
+                }
+            })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Password")
+            @Html.EditorFor(m => m.Password, new
+            {
+                htmlAttributes = new
+                {
+                    required = "true", minlength = "4", maxlength = "30",
+                    @class = "form-control", type = "password", @id = " password",
+                    placeholder="Password"
+                }
+            })
+        </div>
+
+        <div class="form-check">
+            @Html.EditorFor(m => m.RememberMe,
+                new { htmlAttributes = new { @class = "form-check-input" } })
+            @Html.Label("Remember me", "Remember me", 
+                new { @class = "form-check-label"})
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top: 10px;">Sign in</button>
+    </form>
+    <div class="dropdown-divider"></div>
+    <button onclick="showInPopup('@Url.Action("Register", "Account", null, Context.Request.Scheme)', 'Register')"
+            class="dropdown-item">
+        New around here? Sign Up
+    </button>
+</div>

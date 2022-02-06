@@ -2,34 +2,35 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item" style="margin-right: 10px">
-            <span class="navbar-text text-dark">@User.Identity.Name</span>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link btn btn-dark" asp-controller="Account" asp-action="Logout">Logout</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link btn btn-dark" asp-controller="User" asp-action="UsersPage">Manage users</a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @User.Identity.Name | Menu
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    @Html.ActionLink("Logout", "Logout", "Account",
+                        new { }, new { @class = "dropdown-item" })
+                    @if (User.IsInRole("admin"))
+                    {
+                        @Html.ActionLink("Manage Users", "UsersPage", "User",
+                            new { }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Manage Roles", "RolesPage", "Role",
+                            new { }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Manage Users with Roles", "UsersRolesPage", "Role",
+                            new { }, new { @class = "dropdown-item" })
+                    }
+                </div>
+            </div>
         </li>
     }
     else
     {
-        <li class="nav-item" style="margin-right: 10px">
-            <button onclick="showInPopup('@Url.Action("Register", "Account", null, Context.Request.Scheme)', 'Register')"
-                    class="nav-link btn btn-dark">
-                Register
-            </button>
-        </li>
         <li class="nav-item">
-            <button onclick="showInPopup('@Url.Action("Login", "Account", null, Context.Request.Scheme)', 'Login')"
-                    class="nav-link btn btn-dark">
-                Login
-            </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sign In
+                </button>
+                @await Html.PartialAsync("_SignInPartial")
+            </div>
         </li>
     }
-    @if (User.Identity.Name is "admin")
-    {
-        <li class="nav-item">
-            <a class="nav-link btn btn-dark" asp-controller="User" asp-action="UsersPage">Manage users</a>
-        </li>
-    }
-</ul> 
+</ul>

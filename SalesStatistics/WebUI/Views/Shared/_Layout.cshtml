@@ -21,16 +21,44 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomersPage">Customers</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomersPage">Customers</a>
+                            }
+                            else
+                            {
+                                <button class="nav-link text-dark need-to-authorize">Customers</button>
+                            }
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="ManagersPage">Managers</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="ManagersPage">Managers</a>
+                            }
+                            else
+                            {
+                                <button class="nav-link text-dark need-to-authorize">Managers</button>
+                            }
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductsPage">Products</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductsPage">Products</a>
+                            }
+                            else
+                            {
+                                <button class="nav-link text-dark need-to-authorize">Products</button>
+                            }
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="OrdersPage">Orders</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="OrdersPage">Orders</a>
+                            }
+                            else
+                            {
+                                <button class="nav-link text-dark need-to-authorize">Orders</button>
+                            }
                         </li>
                     </ul>
                     @await Html.PartialAsync("_LoginPartial")
@@ -62,11 +90,22 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2022 - SalesStatistics - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2022 - SalesStatistics
     </div>
 </footer>
     @await Html.PartialAsync("_ScriptsImportPartial")
     @await Html.PartialAsync("_ValidationScriptsPartial")
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $("#loginAccountForm").validate();
+
+        $(document).on('click', "#menuContainer", function (e) {
+            e.stopPropagation();
+        });
+
+        $(".need-to-authorize").click(function() {
+            alert("First you need to authorize!");
+        });
+    </script>
 </body>
 </html>
