@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.UseCases.Identity.Role.Commands.AddRolesToUser
+namespace Application.UseCases.Identity.Role.Commands.AddRoleToUser
 {
     public class AddRoleToUserCommand : IRequest<IdentityResult>
     {

@@ -4,14 +4,14 @@ using Application.Common.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.UseCases.Identity.Role.Commands.AddRolesToUser
+namespace Application.UseCases.Identity.Role.Commands.AddRoleToUser
 {
-    public class AddRoleToUserCommandHandler<TUser> : IRequestHandler<AddRoleToUserCommand, IdentityResult> where TUser : class
+    public class AddRoleToUserCommandHandler : IRequestHandler<AddRoleToUserCommand, IdentityResult>
     {
-        private readonly UserManager<TUser> _userManager;
+        private readonly UserManager<Domain.IdentityEntities.User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AddRoleToUserCommandHandler(UserManager<TUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AddRoleToUserCommandHandler(UserManager<Domain.IdentityEntities.User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -23,7 +23,7 @@ namespace Application.UseCases.Identity.Role.Commands.AddRolesToUser
 
             if (userEntity is null)
             {
-                throw new NotFoundException(nameof(TUser), request.UserId);
+                throw new NotFoundException(nameof(Domain.IdentityEntities.User), request.UserId);
             }
 
             var roleEntity = await _roleManager.FindByIdAsync(request.RoleId);
