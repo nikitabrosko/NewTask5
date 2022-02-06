@@ -3,9 +3,6 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Common.Behaviors;
-using Application.Common.Interfaces;
-using Domain.IdentityEntities;
-using Microsoft.AspNetCore.Identity;
 
 namespace Application
 {

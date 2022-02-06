@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
@@ -7,7 +7,8 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
 
-        [Column(TypeName = "Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
 
         public decimal Sum { get; set; }
