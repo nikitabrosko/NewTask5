@@ -8,7 +8,7 @@
     <tr>
         <th>
             <button onclick="showInPopup('@Url.Action("Create", "User", null, Context.Request.Scheme)', 'Create user')"
-                    class="btn btn-dark">
+                    class="btn btn-secondary">
                 Create user
             </button>
         </th>
@@ -16,7 +16,7 @@
     </thead>
 </table>
 
-<div id="products-data">
+<div id="users-data">
     @await Html.PartialAsync("UsersData", Model)
 </div>
 

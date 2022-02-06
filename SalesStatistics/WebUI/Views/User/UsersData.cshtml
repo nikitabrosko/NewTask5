@@ -11,6 +11,7 @@
             <th scope="col">User name</th>
             <th scope="col">Email</th>
             <th scope="col" style="width:100px"></th>
+            <th scope="col" style="width:200px"></th>
             <th scope="col" style="width:100px"></th>
         </tr>
     </thead>
@@ -23,15 +24,22 @@
                 <td>@user.Email</td>
                 <td>
                     <button onclick="showInPopup('@Url.Action("Update", "User", new { user.Id },
-                                                  Context.Request.Scheme)', 'Edit user')"
-                            class="btn btn-dark">
+                                                      Context.Request.Scheme)', 'Edit user')"
+                            class="btn btn-primary">
                         Edit
+                    </button>
+                </td>
+                <td>
+                    <button onclick="showInPopup('@Url.Action("ChangePassword", "User", new { user.Name },
+                                                      Context.Request.Scheme)', 'Change password')"
+                            class="btn btn-info">
+                        Change password
                     </button>
                 </td>
                 <td>
                     <button onclick="jQueryAjaxDelete('@Url.Action("Delete", "User", new { user.Id }, 
                                                            Context.Request.Scheme)', '#users-data')"
-                            class="btn btn-dark">
+                            class="btn btn-danger">
                         Delete
                     </button>
                 </td>
