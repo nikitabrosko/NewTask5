@@ -3,10 +3,12 @@ using Application.UseCases.Identity.User.Commands.CreateUser;
 using Application.UseCases.Identity.User.Commands.DeleteUser;
 using Application.UseCases.Identity.User.Commands.UpdateUser;
 using Application.UseCases.Identity.User.Queries.GetUsersWithPagination;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers.Identity
 {
+    [Authorize(Roles = "admin")]
     public class UserController : ApiControllerBase
     {
         [HttpGet]

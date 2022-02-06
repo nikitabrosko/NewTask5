@@ -8,9 +8,11 @@ using Application.UseCases.Customers.Commands.DeleteCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
 using Application.UseCases.Customers.Queries.GetCustomersWithPagination;
 using Application.UseCases.Customers.Queries.GetFilteringCustomersWithPagination;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebUI.Controllers
 {
+    [Authorize]
     public class CustomerController : ApiControllerBase
     {
         [HttpGet]
@@ -38,12 +40,14 @@ namespace WebUI.Controllers
             return View("CustomersPage", await Mediator.Send(query));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromForm] CreateCustomerCommand command)
         {
@@ -59,12 +63,14 @@ namespace WebUI.Controllers
             return RedirectToAction("CustomersPage");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("{id:int}")]
         public IActionResult Update([FromRoute] int id)
         {
             return View(new UpdateCustomerCommand { Id = id });
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("{command}")]
         [Route("Update/{command}")]
         public async Task<IActionResult> Update([FromForm] UpdateCustomerCommand command)
@@ -81,6 +87,7 @@ namespace WebUI.Controllers
             return RedirectToAction("CustomersPage");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         [Route("Delete/{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id,

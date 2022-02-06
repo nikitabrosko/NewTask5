@@ -7,9 +7,11 @@ using Application.UseCases.Products.Commands.DeleteProduct;
 using Application.UseCases.Products.Commands.UpdateProduct;
 using Application.UseCases.Products.Queries.GetFilteringProductsWithPagination;
 using Application.UseCases.Products.Queries.GetProductsWithPagination;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebUI.Controllers
 {
+    [Authorize]
     public class ProductController : ApiControllerBase
     {
         [HttpGet]
@@ -31,12 +33,14 @@ namespace WebUI.Controllers
             return View("ProductsPage", await Mediator.Send(query));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromForm] CreateProductCommand command)
         {
@@ -52,12 +56,14 @@ namespace WebUI.Controllers
             return RedirectToAction("ProductsPage");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("{id:int}")]
         public IActionResult Update([FromRoute] int id)
         {
             return View(new UpdateProductCommand { Id = id });
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("{command}")]
         [Route("Update/{command}")]
         public async Task<IActionResult> Update([FromForm] UpdateProductCommand command)
@@ -74,6 +80,7 @@ namespace WebUI.Controllers
             return RedirectToAction("ProductsPage");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         [Route("Delete/{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id,
