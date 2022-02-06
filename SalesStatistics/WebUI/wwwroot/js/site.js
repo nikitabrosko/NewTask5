@@ -18,19 +18,16 @@ showInPopup = (url, title) => {
 jQueryAjaxDelete = (url, id) => {
     if (confirm('Are you sure to delete this record?')) {
         try {
-            console.log("1");
             $.ajax({
                 type: 'POST',
                 url: url,
                 success: function (res) {
                     $(id).html(res);
-                    console.log("3");
                 },
                 error: function (err) {
                     console.log(err);
                 }
             });
-            console.log("2");
         } catch (e) {
             console.log(e);
         }
@@ -38,3 +35,19 @@ jQueryAjaxDelete = (url, id) => {
 
     return false;
 }
+
+$('.dateElements').each(function () {
+    $(this).bind("propertychange change click keyup input paste",
+        function (event) {
+            if (!$('#dateFrom').val() && $('#dateTo').val()) {
+                $('#dateFrom').attr("required", true);
+            } else {
+                $('#dateFrom').removeAttr("required");
+            }
+            if (!$('#dateTo').val() && $('#dateFrom').val()) {
+                $('#dateTo').attr("required", true);
+            } else {
+                $('#dateTo').removeAttr("required");
+            }
+        });
+});

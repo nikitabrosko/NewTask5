@@ -1,7 +1,5 @@
 ﻿@model Application.UseCases.Orders.Queries.GetFilteringOrdersWithPagination.GetFilteringOrdersWithPaginationQuery
 
-@await Html.PartialAsync("_ScriptsImportPartial")
-
 @using (Html.BeginForm("FilteringOrdersPage", "Order", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -17,25 +15,5 @@
         @Html.EditorFor(m => m.Sum,
         new { htmlAttributes = new { type = "number", min = "0", placeholder = "Sum" } })
     </th>
-    <th scope="col"><input type="submit" value="Search" class="btn btn-secondary"/></th>
+    <th scope="col"><input type="submit" value="Search" class="btn btn-secondary" /></th>
 }
-
-<script>
-    $('.dateElements').each(function () {
-        const elem = $(this);
-
-        elem.bind("propertychange change click keyup input paste",
-            function (event) {
-                if (!$('#dateFrom').val() && $('#dateTo').val()) {
-                    $('#dateFrom').attr("required", true);
-                } else {
-                    $('#dateFrom').removeAttr("required");
-                }
-                if (!$('#dateTo').val() && $('#dateFrom').val()) {
-                    $('#dateTo').attr("required", true);
-                } else {
-                    $('#dateTo').removeAttr("required");
-                }
-            });
-    })
-</script>
