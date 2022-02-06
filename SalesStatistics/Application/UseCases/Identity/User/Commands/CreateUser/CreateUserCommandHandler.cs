@@ -26,6 +26,8 @@ namespace Application.UseCases.Identity.User.Commands.CreateUser
 
             var result = await _manager.CreateAsync(entity, request.Password);
 
+            await _manager.AddToRoleAsync(entity, "user");
+
             return new UserCreatingResult
             {
                 Result = result,
