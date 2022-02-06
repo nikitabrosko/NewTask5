@@ -7,16 +7,18 @@
 <table class="table text-center">
     <thead>
         <tr>
-            <th>
-                <button onclick="showInPopup('@Url.Action("Create", "Order", null, Context.Request.Scheme)', 'Create order')"
-                        class="btn btn-dark">
-                    Create order
-                </button>
-            </th>
-            @*<th><button onclick="showInPopup('@Url.Action("Filter", "Customer",
-                                          new GetFilteringCustomersWithPaginationQuery(),
-                                          Context.Request.Scheme)', 'Search customers')"
-                class="btn btn-dark">Search</button></th>*@
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("admin"))
+                {
+                    <th>
+                        <button onclick="showInPopup('@Url.Action("Create", "Order", null, Context.Request.Scheme)', 'Create order')"
+                                class="btn btn-secondary">
+                            Create order
+                        </button>
+                    </th>
+                }
+            }
             @await Html.PartialAsync("Filter", new GetFilteringOrdersWithPaginationQuery())
         </tr>
     </thead>
