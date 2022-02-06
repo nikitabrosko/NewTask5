@@ -20,6 +20,56 @@
     @await Html.PartialAsync("RolesData", Model)
 </div>
 
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">@Html.ActionLink("Previous", "RolesPage", "Role",
+                                      new GetRolesWithPaginationQuery { PageNumber = Model.PageNumber - 1 }, 
+                                      new { @class = "page-link" })
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">@Html.ActionLink("Previous", "RolesPage", "Role",
+                                               new GetRolesWithPaginationQuery { PageNumber = Model.PageNumber - 1 }, 
+                                               new { @class = "page-link" })
+            </li>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (Model.PageNumber.Equals(i))
+            {
+                <li class="page-item active">@Html.ActionLink($"{i}", "RolesPage", "Role",
+                                                 new GetRolesWithPaginationQuery { PageNumber = i }, 
+                                                 new { @class = "page-link" })
+                </li>
+            }
+            else
+            {
+                <li class="page-item">@Html.ActionLink($"{i}", "RolesPage", "Role",
+                                          new GetRolesWithPaginationQuery { PageNumber = i }, 
+                                          new { @class = "page-link" })
+                </li>
+            }
+        }
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">@Html.ActionLink("Next", "RolesPage", "Role",
+                                      new GetRolesWithPaginationQuery { PageNumber = Model.PageNumber + 1 }, 
+                                      new { @class = "page-link" })
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">@Html.ActionLink("Next", "RolesPage", "Role",
+                                               new GetRolesWithPaginationQuery { PageNumber = Model.PageNumber + 1 }, 
+                                               new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+</nav>
+
 <div>
     @if (Model.HasPreviousPage)
     {

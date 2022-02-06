@@ -7,7 +7,7 @@
 <table class="table text-center">
     <thead>
         <tr>
-            @if(User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated)
             {
                 if (User.IsInRole("admin"))
                 {
@@ -28,15 +28,52 @@
     @await Html.PartialAsync("CustomersData", Model)
 </div>
 
-<div>
-    @if (Model.HasPreviousPage)
-    {
-        @Html.ActionLink("Previous page", "CustomersPage", "Customer",
-            new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber - 1 })
-    }
-    @if (Model.HasNextPage)
-    {
-        @Html.ActionLink("Next page", "CustomersPage", "Customer",
-            new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber + 1 })
-    }
-</div>
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">@Html.ActionLink("Previous", "CustomersPage", "Customer",
+                                      new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber - 1 },
+                                      new { @class = "page-link" })
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">@Html.ActionLink("Previous", "CustomersPage", "Customer",
+                                      new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber - 1 },
+                                      new { @class = "page-link" })
+            </li>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (Model.PageNumber.Equals(i))
+            {
+                <li class="page-item active">@Html.ActionLink($"{i}", "CustomersPage", "Customer",
+                                          new GetCustomersWithPaginationQuery { PageNumber = i },
+                                          new { @class = "page-link" })
+                </li>
+            }
+            else
+            {
+                <li class="page-item">@Html.ActionLink($"{i}", "CustomersPage", "Customer",
+                                          new GetCustomersWithPaginationQuery { PageNumber = i },
+                                          new { @class = "page-link" })
+                </li>
+            }
+        }
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">@Html.ActionLink("Next", "CustomersPage", "Customer",
+                                      new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber + 1 },
+                                      new { @class = "page-link" })
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">@Html.ActionLink("Next", "CustomersPage", "Customer",
+                                      new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber + 1 }, 
+                                      new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+</nav>
