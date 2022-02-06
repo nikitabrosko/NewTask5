@@ -1,0 +1,34 @@
+﻿@using Application.UseCases.Identity.Role.Queries.GetRolesWithPagination
+@model Application.Common.Models.PaginatedList<Application.UseCases.Identity.Role.Queries.GetRolesWithPagination.RoleDto>
+
+<h2 class="text-center">Roles</h2>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>
+                <button onclick="showInPopup('@Url.Action("Create", "Role", null, Context.Request.Scheme)', 'Create role')"
+                        class="btn btn-secondary">
+                    Create role
+                </button>
+            </th>
+        </tr>
+    </thead>
+</table>
+
+<div id="roles-data">
+    @await Html.PartialAsync("RolesData", Model)
+</div>
+
+<div>
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("Previous page", "RolesPage", "Role",
+            new GetRolesWithPaginationQuery { PageNumber = Model.PageNumber - 1 })
+    }
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next page", "RolesPage", "Role",
+            new GetRolesWithPaginationQuery { PageNumber = Model.PageNumber + 1 })
+    }
+</div>

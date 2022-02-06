@@ -1,0 +1,39 @@
+﻿@model Application.Common.Models.PaginatedList<Application.UseCases.Identity.Role.Queries.GetRolesWithPagination.RoleDto>
+
+@{
+    Layout = null;
+}
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Role name</th>
+            <th scope="col" style="width:100px"></th>
+            <th scope="col" style="width:100px"></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var role in Model.Items)
+    {
+        <tr>
+            <td>@role.Id</td>
+            <td>@role.Name</td>
+            <td>
+                <button onclick="showInPopup('@Url.Action("Update", "Role", new { role.Id },
+                                                  Context.Request.Scheme)', 'Edit role')"
+                        class="btn btn-primary">
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button onclick="jQueryAjaxDelete('@Url.Action("Delete", "Role", new { role.Id }, 
+                                                       Context.Request.Scheme)', '#roles-data')"
+                        class="btn btn-danger">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

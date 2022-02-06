@@ -1,0 +1,18 @@
+﻿@model IList<string>
+
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("_StylesImportPartial")
+
+<ul class="list-group">
+    @foreach (var role in Model)
+    {
+        <li class="list-group-item add-remove-roles-user">
+            @role @Html.ActionLink("Remove", "RemoveRoleFromUser", "Role",
+                new { userId = ViewBag.UserId, roleName = role }, 
+                new { @class = "btn btn-primary" })
+        </li>
+    }
+</ul>

@@ -1,0 +1,18 @@
+﻿@model Application.Common.Models.PaginatedList<Application.UseCases.Identity.Role.Queries.GetRolesWithPagination.RoleDto>
+
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("_StylesImportPartial")
+
+<ul class="list-group">
+    @foreach (var role in Model.Items)
+    {
+        <li class="list-group-item add-remove-roles-user">
+            @role.Name @Html.ActionLink("Add", "AddRoleToUser", "Role", 
+                      new { userId = ViewBag.UserId, roleId = role.Id },
+                      new { @class = "btn btn-primary" })
+        </li>
+    }
+</ul>

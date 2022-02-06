@@ -1,0 +1,59 @@
+﻿@model Application.Common.Models.PaginatedList<UserWithRolesDto>
+@using Application.UseCases.Identity.Role.Queries.GetUsersWithRolesWithPagination
+
+<h2 class="text-center">Roles</h2>
+
+<table class="table text-center">
+    <thead>
+    <tr>
+        <th scope="col" hidden>id</th>
+        <th scope="col">Role name</th>
+        <th scope="col">Roles</th>
+        <th scope="col" style="width:150px"></th>
+        <th scope="col" style="width:150px"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model.Items)
+    {
+        <tr>
+            @Html.Hidden(user.Id)
+            <td>@user.Name</td>
+            <td>
+                @if (user.Roles.Any())
+                {
+                    @foreach (var userRole in user.Roles)
+                    {
+                        if (!user.Roles.Last().Equals(userRole))
+                        {
+                            <b>@userRole, </b>
+                        }
+                        else
+                        {
+                            <b>@userRole</b>
+                        }
+                    }
+                }
+                else
+                {
+                    @Html.Label("No Roles")
+                }
+            </td>
+            <td>
+                <button onclick="showInPopup('@Url.Action("AddRoleToUser", "Role", new { userId = user.Id },
+                                                  Context.Request.Scheme)', 'Add roles')"
+                        class="btn btn-info">
+                    Add role
+                </button>
+            </td>
+            <td>
+                <button onclick="showInPopup('@Url.Action("RemoveRoleFromUser", "Role", new { userId = user.Id },
+                                                  Context.Request.Scheme)', 'Remove roles')"
+                        class="btn btn-info">
+                    Remove role
+                </button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
