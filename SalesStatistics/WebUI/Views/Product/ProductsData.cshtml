@@ -7,31 +7,61 @@
 <table class="table text-center">
     <thead>
         <tr>
-            <th scope="col">id</th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("admin"))
+                {
+                    <th scope="col">id</th>
+                }
+            }
             <th scope="col">Name</th>
             <th scope="col">Price</th>
-            <th scope="col" style="width:100px"></th>
-            <th scope="col" style="width:100px"></th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("admin"))
+                {
+                    <th scope="col" style="width:100px"></th>
+                    <th scope="col" style="width:100px"></th>
+                }
+            }
         </tr>
     </thead>
     <tbody>
         @foreach (var product in Model.Items)
         {
-            <tr>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>
-                    <button onclick="showInPopup('@Url.Action("Update", "Product", new { product.Id },
-                                                      Context.Request.Scheme)', 'Edit product')" 
-                            class="btn btn-dark">Edit</button>
-                </td>
-                <td>
-                    <button onclick="jQueryAjaxDelete('@Url.Action("Delete", "Product",
+        <tr>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("admin"))
+                {
+                    <td>@product.Id</td>
+                }
+            }
+
+            <td>@product.Name</td>
+            <td>@product.Price</td>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <button onclick="showInPopup('@Url.Action("Update", "Product", new { product.Id },
+                                                      Context.Request.Scheme)', 'Edit product')"
+                                class="btn btn-primary">
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button onclick="jQueryAjaxDelete('@Url.Action("Delete", "Product",
                                                            new {product.Id}, Context.Request.Scheme)', '#products-data')"
-                            class="btn btn-dark">Delete</button>
-                </td>
-            </tr>
+                                class="btn btn-danger">
+                            Delete
+                        </button>
+                    </td>
+                }
+            }
+        </tr>
         }
     </tbody>
 </table>
