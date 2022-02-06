@@ -40,8 +40,8 @@
         else
         {
             <li class="page-item disabled">@Html.ActionLink("Previous", "CustomersPage", "Customer",
-                                      new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber - 1 },
-                                      new { @class = "page-link" })
+                                               new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber - 1 },
+                                               new { @class = "page-link" })
             </li>
         }
         @for (int i = 1; i <= Model.TotalPages; i++)
@@ -49,8 +49,8 @@
             if (Model.PageNumber.Equals(i))
             {
                 <li class="page-item active">@Html.ActionLink($"{i}", "CustomersPage", "Customer",
-                                          new GetCustomersWithPaginationQuery { PageNumber = i },
-                                          new { @class = "page-link" })
+                                                 new GetCustomersWithPaginationQuery { PageNumber = i },
+                                                 new { @class = "page-link" })
                 </li>
             }
             else
@@ -71,8 +71,8 @@
         else
         {
             <li class="page-item disabled">@Html.ActionLink("Next", "CustomersPage", "Customer",
-                                      new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber + 1 }, 
-                                      new { @class = "page-link" })
+                                               new GetCustomersWithPaginationQuery { PageNumber = Model.PageNumber + 1 }, 
+                                               new { @class = "page-link" })
             </li>
         }
     </ul>
