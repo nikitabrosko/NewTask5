@@ -9,17 +9,49 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item-background carousel-item active">
-            @Html.ActionLink("Customers", "CustomersPage", "Customer", new { }, new { @class = "carousel-item-background-child" })
-
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Customers", "CustomersPage", "Customer",
+                    new {}, new {@class = "carousel-item-background-child"})
+            }
+            else
+            {
+                <button class="carousel-item-background-child need-to-authorize">Customers</button>
+            }
         </div>
         <div class="carousel-item-background carousel-item">
-            @Html.ActionLink("Managers", "ManagersPage", "Manager", new { }, new { @class = "carousel-item-background-child" })
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Managers", "ManagersPage", "Manager",
+                    new { }, new { @class = "carousel-item-background-child" })
+            }
+            else
+            {
+                <button class="carousel-item-background-child need-to-authorize">Managers</button>
+            }
         </div>
         <div class="carousel-item-background carousel-item">
-            @Html.ActionLink("Products", "ProductsPage", "Product", new { }, new { @class = "carousel-item-background-child" })
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Products", "ProductsPage", "Product",
+                    new { }, new { @class = "carousel-item-background-child" })
+            }
+            else
+            {
+                <button class="carousel-item-background-child need-to-authorize">Products</button>
+            }
+           
         </div>
         <div class="carousel-item-background carousel-item">
-            @Html.ActionLink("Orders", "OrdersPage", "Order", new { }, new { @class = "carousel-item-background-child" })
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Orders", "OrdersPage", "Order",
+                    new { }, new { @class = "carousel-item-background-child" })
+            }
+            else
+            {
+                <button class="carousel-item-background-child need-to-authorize">Orders</button>
+            }
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -32,6 +64,8 @@
     </a>
 </div>
 
-<script>
-    $('.carousel').carousel()
-</script>
+@section Scripts{
+    <script>
+        $('.carousel').carousel();
+    </script>
+}
