@@ -111,3 +111,23 @@ body {
 .error-message {
     margin: 5%;
 }
+
+.need-to-authorize {
+    background: none;
+    border: none;
+    inline-size: -webkit-fill-available;
+}
+
+    .need-to-authorize:focus {
+        outline: none;
+    }
+
+.add-remove-roles-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .add-remove-roles-user a {
+        width: 100px;
+    }
