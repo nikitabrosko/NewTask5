@@ -1,14 +1,15 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Application.UseCases.Identity.Role.Queries.GetUsersWithRolesWithPagination
 {
-    public class GetUsersWithRolesWithPaginationQueryHandler : 
-        IRequestHandler<GetUsersWithRolesWithPaginationQuery, PaginatedList<UserWithRolesDto>>
+    public class GetUsersWithRolesWithPaginationQueryHandler : IRequestHandler<GetUsersWithRolesWithPaginationQuery, PaginatedList<UserWithRolesDto>>
     {
         private readonly UserManager<Domain.IdentityEntities.User> _userManager;
 
@@ -23,17 +24,17 @@ namespace Application.UseCases.Identity.Role.Queries.GetUsersWithRolesWithPagina
                 .Select(user => new UserWithRolesDto
                 {
                     Id = user.Id,
-                    Name = user.UserName,
-                });
+                    Name = user.UserName
+                }).ToList();
 
-            foreach (var user in query.ToList())
+            foreach (var user in query)
             {
                 var entity = await _userManager.FindByIdAsync(user.Id);
 
                 user.Roles = await _userManager.GetRolesAsync(entity);
             }
 
-            return await PaginatedList<UserWithRolesDto>.CreateAsync(query, request.PageNumber, request.PageSize);
+            return PaginatedList<UserWithRolesDto>.Create(query.AsQueryable(), request.PageNumber, request.PageSize);
         }
     }
 }
