@@ -18,6 +18,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<ManagerDto>>> ManagersPage(
             [FromQuery] GetManagersWithPaginationQuery query)
         {
+            ViewBag.Title = "Managers page";
+
             return View(await Mediator.Send(query));
         }
 
@@ -25,6 +27,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringManagersPage(
             [FromForm] GetFilteringManagersWithPaginationQuery query)
         {
+            ViewBag.Title = "Managers page";
+
             if (query.LastNameFilter is null)
             {
                 return RedirectToAction("ManagersPage");
@@ -37,6 +41,8 @@ namespace WebUI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Title = "Create manager page";
+
             return View();
         }
 
@@ -60,6 +66,8 @@ namespace WebUI.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Update([FromRoute] int id)
         {
+            ViewBag.Title = "Update manager page";
+
             return View(new UpdateManagerCommand { Id = id });
         }
 

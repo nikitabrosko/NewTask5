@@ -18,6 +18,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<ProductDto>>> ProductsPage(
             [FromQuery] GetProductsWithPaginationQuery query)
         {
+            ViewBag.Title = "Products page";
+
             return View(await Mediator.Send(query));
         }
 
@@ -25,6 +27,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringProductsPage(
             [FromForm] GetFilteringProductsWithPaginationQuery query)
         {
+            ViewBag.Title = "Products page";
+
             if (query.NameFilter is null && query.PriceFilter is null)
             {
                 return RedirectToAction("ProductsPage");
@@ -37,6 +41,8 @@ namespace WebUI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Title = "Create product page";
+
             return View();
         }
 
@@ -60,6 +66,8 @@ namespace WebUI.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Update([FromRoute] int id)
         {
+            ViewBag.Title = "Update product page";
+
             return View(new UpdateProductCommand { Id = id });
         }
 

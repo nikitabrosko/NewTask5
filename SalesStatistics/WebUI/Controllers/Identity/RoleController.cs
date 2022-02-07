@@ -19,18 +19,24 @@ namespace WebUI.Controllers.Identity
         [HttpGet]
         public async Task<IActionResult> RolesPage([FromQuery] GetRolesWithPaginationQuery query)
         {
+            ViewBag.Title = "Roles page";
+
             return View(await Mediator.Send(query));
         }
 
         [HttpGet]
         public async Task<IActionResult> UsersRolesPage([FromQuery] GetUsersWithRolesWithPaginationQuery query)
         {
+            ViewBag.Title = "Users with Roles page";
+
             return View(await Mediator.Send(query));
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Title = "Create role page";
+
             return View();
         }
 
@@ -57,6 +63,8 @@ namespace WebUI.Controllers.Identity
         [HttpGet("{id}")]
         public IActionResult Update([FromRoute] string id)
         {
+            ViewBag.Title = "Update role page";
+
             return View(new UpdateRoleCommand { Id = id });
         }
 
@@ -105,6 +113,7 @@ namespace WebUI.Controllers.Identity
         [HttpGet("{userId}")]
         public async Task<IActionResult> AddRoleToUser([FromRoute] string userId, [FromQuery] GetRolesWithPaginationQuery query)
         {
+            ViewBag.Title = "Add Role to User page";
             ViewBag.UserId = userId;
 
             return View(await Mediator.Send(query));
@@ -133,6 +142,7 @@ namespace WebUI.Controllers.Identity
         [HttpGet("{userId}")]
         public async Task<IActionResult> RemoveRoleFromUser(string userId)
         {
+            ViewBag.Title = "Remove Role from User page";
             ViewBag.UserId = userId;
 
             return View(await Mediator.Send(new GetRolesForSpecifiedUserQuery {UserId = userId}));

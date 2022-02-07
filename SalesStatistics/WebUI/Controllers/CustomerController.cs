@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Application.Common.Exceptions;
 using Application.Common.Models;
@@ -19,6 +18,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<CustomerDto>>> CustomersPage(
             [FromQuery] GetCustomersWithPaginationQuery query)
         {
+            ViewBag.Title = "Customers page";
+
             return View(await Mediator.Send(query));
         }
 
@@ -32,6 +33,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringCustomersPage(
             [FromForm] GetFilteringCustomersWithPaginationQuery query)
         {
+            ViewBag.Title = "Customers page";
+
             if (query.FirstNameFilter is null && query.LastNameFilter is null)
             {
                 return RedirectToAction("CustomersPage");
@@ -44,6 +47,8 @@ namespace WebUI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Title = "Create customer page";
+
             return View();
         }
 
@@ -67,6 +72,8 @@ namespace WebUI.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Update([FromRoute] int id)
         {
+            ViewBag.Title = "Update customer page";
+
             return View(new UpdateCustomerCommand { Id = id });
         }
 

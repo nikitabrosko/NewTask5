@@ -14,12 +14,16 @@ namespace WebUI.Controllers.Identity
         [HttpGet]
         public async Task<IActionResult> UsersPage([FromQuery] GetUsersWithPaginationQuery query)
         {
+            ViewBag.Title = "Users page";
+
             return View(await Mediator.Send(query));
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Title = "Create user page";
+
             return View();
         }
 
@@ -34,6 +38,8 @@ namespace WebUI.Controllers.Identity
         [HttpGet("{id}")]
         public IActionResult Update([FromRoute] string id)
         {
+            ViewBag.Title = "Update user page";
+
             return View(new UpdateUserCommand { Id = id });
         }
 
@@ -58,6 +64,7 @@ namespace WebUI.Controllers.Identity
         [HttpGet]
         public IActionResult ChangePassword(string name)
         {
+            ViewBag.Title = "Change password page";
             ViewBag.UserName = name;
 
             return View();

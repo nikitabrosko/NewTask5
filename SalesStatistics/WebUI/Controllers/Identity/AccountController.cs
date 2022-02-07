@@ -22,6 +22,8 @@ namespace WebUI.Controllers.Identity
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.Title = "Register page";
+
             return View();
         }
 
@@ -43,6 +45,8 @@ namespace WebUI.Controllers.Identity
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
+            ViewBag.Title = "Login page";
+
             return PartialView("_SignInPartial", new LoginUserQuery {ReturnUrl = returnUrl});
         }
 

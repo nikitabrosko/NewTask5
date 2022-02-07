@@ -19,6 +19,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<OrderDto>>> OrdersPage(
             [FromQuery] GetOrdersWithPaginationQuery query)
         {
+            ViewBag.Title = "Orders page";
+
             return View(await Mediator.Send(query));
         }
 
@@ -26,6 +28,8 @@ namespace WebUI.Controllers
         public async Task<ActionResult<PaginatedList<CustomerDto>>> FilteringOrdersPage(
             [FromForm] GetFilteringOrdersWithPaginationQuery query)
         {
+            ViewBag.Title = "Orders page";
+
             if (query.DateFromFilter is null && query.DateToFilter is null && query.Sum is null)
             {
                 return RedirectToAction("OrdersPage");
@@ -38,6 +42,8 @@ namespace WebUI.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Title = "Create order page";
+
             return View();
         }
 
@@ -61,6 +67,8 @@ namespace WebUI.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Update([FromRoute] int id)
         {
+            ViewBag.Title = "Update order page";
+
             return View(new UpdateOrderCommand { Id = id });
         }
 
